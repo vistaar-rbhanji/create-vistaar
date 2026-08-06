@@ -1,0 +1,6 @@
+﻿{
+  "style": "default",
+  "tailwind": { "baseColor": "slate" },
+  "aliases": { "components": "@/components" },
+  "project": "{{PACKAGE_NAME}}"
+}

@@ -1,0 +1,3 @@
+﻿# Optional auth deps for {{PACKAGE_NAME}} (install when implementing real auth)
+# PyJWT>=2.9.0
+# passlib[bcrypt]>=1.7.4

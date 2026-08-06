@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "db:migrate": "drizzle-kit push && node src/mark-migrated.js",
+    "db:seed": "node src/seed.js",
+    "db:setup": "npm run db:migrate && npm run db:seed"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.38.2",
+    "postgres": "^3.4.5"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.30.1"
+  }
+}

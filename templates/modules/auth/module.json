@@ -1,0 +1,65 @@
+﻿{
+  "name": "auth",
+  "description": "Reusable authentication company module — scaffolds only, no auth logic yet.",
+  "summaryTitle": "Installed authentication features",
+  "dependencies": [],
+  "enabledWhen": {
+    "field": "authentication",
+    "equals": true
+  },
+  "npmPackages": {
+    "frontend": {
+      "dependencies": {
+        "js-cookie": "^3.0.5"
+      }
+    },
+    "backend": {
+      "dependencies": {
+        "jsonwebtoken": "^9.0.2",
+        "bcryptjs": "^2.4.3"
+      }
+    }
+  },
+  "postInstallCommands": [],
+  "templateFolders": {
+    "frontend": "frontend/typescript",
+    "backend": "backend/express"
+  },
+  "variants": [
+    {
+      "when": { "language": "javascript" },
+      "templateFolders": { "frontend": "frontend/javascript" }
+    },
+    {
+      "when": { "backend": "fastapi" },
+      "templateFolders": { "backend": "backend/fastapi" },
+      "npmPackages": { "backend": {} },
+      "features": ["FastAPI auth router stub", "PyJWT / password helper placeholders"]
+    },
+    {
+      "when": { "backend": "none" },
+      "templateFolders": { "backend": null },
+      "npmPackages": { "backend": {} }
+    }
+  ],
+  "envExample": {
+    "frontend": [
+      "VITE_AUTH_API_URL=http://localhost:3000",
+      "VITE_AUTH_COOKIE_NAME={{PACKAGE_NAME}}_token"
+    ],
+    "backend": [
+      "JWT_SECRET=change-me",
+      "AUTH_TOKEN_TTL=1d",
+      "AUTH_COOKIE_NAME={{PACKAGE_NAME}}_token"
+    ]
+  },
+  "features": [
+    "Login page scaffold",
+    "Register page scaffold",
+    "Auth context / provider stub",
+    "Auth API route stubs (login / register / me)",
+    "Token / password helper placeholders",
+    ".env.example auth variables",
+    "package.json dependency merge (npm install via installer)"
+  ]
+}

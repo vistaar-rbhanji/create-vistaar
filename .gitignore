@@ -1,0 +1,11 @@
+node_modules/
+dist/
+phases/
+*.tsbuildinfo
+.DS_Store
+*.log
+.env
+.env.*
+coverage/
+.turbo/
+.tmp*/

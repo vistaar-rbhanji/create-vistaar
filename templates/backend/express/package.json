@@ -1,0 +1,20 @@
+{
+  "name": "{{PACKAGE_NAME}}-api",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "db:migrate": "echo No migrations needed for the file-based store",
+    "db:seed": "echo Seeding happens automatically on server start",
+    "db:setup": "npm run db:migrate && npm run db:seed",
+    "migrate": "npm run db:migrate",
+    "seed": "npm run db:seed"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}

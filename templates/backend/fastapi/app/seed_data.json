@@ -1,0 +1,11 @@
+{
+  "projectName": "{{PROJECT_NAME}}",
+  "frontend": "{{FRONTEND}}",
+  "backend": "{{BACKEND}}",
+  "database": "{{DATABASE}}",
+  "orm": "{{ORM}}",
+  "uiFramework": "{{UI_FRAMEWORK}}",
+  "authentication": "{{AUTHENTICATION}}",
+  "docker": "{{DOCKER}}",
+  "createdAt": "{{CREATED_AT}}"
+}

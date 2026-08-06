@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "db:migrate": "echo MongoDB does not require migrations",
+    "db:seed": "node src/seed.js",
+    "db:setup": "npm run db:seed"
+  },
+  "dependencies": {
+    "mongoose": "^8.9.0"
+  }
+}

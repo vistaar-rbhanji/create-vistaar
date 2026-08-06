@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AppInfo {
+  id             String   @id @default(cuid())
+  projectName    String
+  frontend       String
+  backend        String
+  database       String
+  orm            String
+  uiFramework    String
+  authentication String
+  docker         String
+  createdAt      DateTime @default(now())
+}
