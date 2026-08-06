@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CLI Reference — Vistaar</title>
+  <meta name="description" content="Reference for create-vistaar, vistaar doctor, add, generate, and update." />
+  <link rel="icon" href="assets/images/favicon.ico" sizes="any" />
+  <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/code.css" />
+  <script src="assets/js/theme.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <button type="button" class="icon-btn mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open navigation">☰</button>
+      <a class="brand" href="index.html">
+        <img src="assets/images/logo.png" alt="" width="28" height="28" />
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html" data-nav>Home</a>
+        <a href="getting-started.html" data-nav>Getting Started</a>
+        <a href="installation.html" data-nav>Installation</a>
+        <a href="cli.html" data-nav>CLI</a>
+        <a href="roadmap.html" data-nav>Roadmap</a>
+        <a href="faq.html" data-nav>FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="search-wrap">
+          <button type="button" class="icon-btn search-toggle" id="search-toggle" aria-label="Open search">⌕</button>
+          <label class="visually-hidden" for="site-search">Search docs</label>
+          <input class="search-box" id="site-search" type="search" placeholder="Search docs…" autocomplete="off" />
+          <div class="search-results" id="search-results" data-open="false" role="listbox"></div>
+        </div>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch theme">☀</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" aria-label="Docs">
+      <h2>Documentation</h2>
+      <nav>
+        <a href="index.html" data-nav>Home</a>
+        <a href="getting-started.html" data-nav>Getting Started</a>
+        <a href="installation.html" data-nav>Installation</a>
+        <a href="cli.html" data-nav>CLI Reference</a>
+        <a href="roadmap.html" data-nav>Roadmap</a>
+        <a href="faq.html" data-nav>FAQ</a>
+      </nav>
+      <h2>Commands</h2>
+      <nav>
+        <a href="#create-vistaar">create-vistaar</a>
+        <a href="#doctor">doctor</a>
+        <a href="#add">add</a>
+        <a href="#generate">generate</a>
+        <a href="#update">update</a>
+      </nav>
+    </aside>
+
+    <main id="main" class="content prose">
+      <h1>CLI Reference</h1>
+      <p class="lede">
+        Two binaries: <code>create-vistaar</code> creates projects;
+        <code>vistaar</code> manages them.
+      </p>
+
+      <h2 id="create-vistaar">create-vistaar</h2>
+      <p>Interactive project scaffolding. Collects stack choices and generates the workspace.</p>
+      <pre><code>npx create-vistaar
+# or after a global install
+create-vistaar</code></pre>
+      <p>Typical prompts include project name, language, UI framework, backend, database, ORM, auth, Docker, Git, Husky, and ESLint/Prettier.</p>
+
+      <h2 id="doctor">vistaar doctor</h2>
+      <p>Runs project health checks when a generated <code>scripts/doctor.js</code> is present.</p>
+      <pre><code>cd my-app
+vistaar doctor</code></pre>
+      <div class="callout">
+        <p>Run doctor from the project root so it can locate setup markers and scripts.</p>
+      </div>
+
+      <h2 id="add">vistaar add <span class="badge badge-soon">🚧 Coming Soon</span></h2>
+      <p>Install modules into an existing Vistaar project (auth, RBAC, storage, and more).</p>
+      <pre><code>vistaar add auth</code></pre>
+
+      <h2 id="generate">vistaar generate <span class="badge badge-soon">🚧 Coming Soon</span></h2>
+      <p>Generate CRUD resources and related boilerplate inside a project.</p>
+      <pre><code>vistaar generate crud users</code></pre>
+
+      <h2 id="update">vistaar update <span class="badge badge-soon">🚧 Coming Soon</span></h2>
+      <p>Upgrade templates and tooling in an existing project with guided migrations.</p>
+      <pre><code>vistaar update</code></pre>
+    </main>
+  </div>
+
+  <footer class="docs-footer">
+    <div class="container">
+      <span>© Vistaar — open-source project scaffolding</span>
+      <span><a href="installation.html">Installation</a> · <a href="roadmap.html">Roadmap</a></span>
+    </div>
+  </footer>
+
+  <script src="assets/js/clipboard.js"></script>
+  <script src="assets/js/search.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

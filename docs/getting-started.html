@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Getting Started — Vistaar</title>
+  <meta name="description" content="Learn what Vistaar is, why to use it, and how to scaffold your first project." />
+  <link rel="icon" href="assets/images/favicon.ico" sizes="any" />
+  <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/code.css" />
+  <script src="assets/js/theme.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <button type="button" class="icon-btn mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open navigation">☰</button>
+      <a class="brand" href="index.html">
+        <img src="assets/images/logo.png" alt="" width="28" height="28" />
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html" data-nav>Home</a>
+        <a href="getting-started.html" data-nav>Getting Started</a>
+        <a href="installation.html" data-nav>Installation</a>
+        <a href="cli.html" data-nav>CLI</a>
+        <a href="roadmap.html" data-nav>Roadmap</a>
+        <a href="faq.html" data-nav>FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="search-wrap">
+          <button type="button" class="icon-btn search-toggle" id="search-toggle" aria-label="Open search">⌕</button>
+          <label class="visually-hidden" for="site-search">Search docs</label>
+          <input class="search-box" id="site-search" type="search" placeholder="Search docs…" autocomplete="off" />
+          <div class="search-results" id="search-results" data-open="false" role="listbox"></div>
+        </div>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch theme">☀</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" aria-label="Docs">
+      <h2>Documentation</h2>
+      <nav>
+        <a href="index.html" data-nav>Home</a>
+        <a href="getting-started.html" data-nav>Getting Started</a>
+        <a href="installation.html" data-nav>Installation</a>
+        <a href="cli.html" data-nav>CLI Reference</a>
+        <a href="roadmap.html" data-nav>Roadmap</a>
+        <a href="faq.html" data-nav>FAQ</a>
+      </nav>
+      <h2>On this page</h2>
+      <nav>
+        <a href="#what-is-vistaar">What is Vistaar</a>
+        <a href="#why-use-it">Why use it</a>
+        <a href="#requirements">Requirements</a>
+        <a href="#quick-start">Quick Start</a>
+        <a href="#first-project">First Project</a>
+      </nav>
+    </aside>
+
+    <main id="main" class="content prose">
+      <h1>Getting Started</h1>
+      <p class="lede">Go from zero to a runnable full-stack app with one interactive command.</p>
+
+      <h2 id="what-is-vistaar">What is Vistaar</h2>
+      <p>
+        Vistaar is an open-source scaffolding CLI. It asks a few questions about your stack,
+        then generates a production-oriented project layout — frontend, optional backend and
+        database, Docker, modules, and setup tooling — from reusable templates.
+      </p>
+
+      <h2 id="why-use-it">Why use it</h2>
+      <ul>
+        <li>Consistent project structure across teams</li>
+        <li>Opinionated defaults for React, Express/FastAPI, and popular databases</li>
+        <li>Optional modules (auth, Docker) without reinventing plumbing</li>
+        <li>Built-in doctor and setup wizard for a smoother first run</li>
+      </ul>
+
+      <h2 id="requirements">Requirements</h2>
+      <ul>
+        <li><strong>Node.js</strong> 18 or newer</li>
+        <li><strong>Git</strong> (recommended for version control and husky hooks)</li>
+      </ul>
+      <div class="callout">
+        <p>Python is only required if you choose a FastAPI backend.</p>
+      </div>
+
+      <h2 id="quick-start">Quick Start</h2>
+      <pre><code>npx create-vistaar</code></pre>
+      <p>Answer the prompts, then enter the generated folder and start the apps.</p>
+
+      <h2 id="first-project">First Project</h2>
+      <ol>
+        <li>Run <code>npx create-vistaar</code> and choose a project name.</li>
+        <li>Select frontend language, UI kit, backend, and database options.</li>
+        <li>Optionally enable authentication, Docker, Git, Husky, and ESLint/Prettier.</li>
+        <li>Open the generated README for stack-specific next steps.</li>
+        <li>Run <code>vistaar doctor</code> if something looks off.</li>
+      </ol>
+      <pre><code>cd my-app
+npm install
+npm run dev</code></pre>
+      <p>Next: <a href="installation.html">Installation options</a> or the <a href="cli.html">CLI reference</a>.</p>
+    </main>
+  </div>
+
+  <footer class="docs-footer">
+    <div class="container">
+      <span>© Vistaar — open-source project scaffolding</span>
+      <span><a href="index.html">Home</a> · <a href="cli.html">CLI</a></span>
+    </div>
+  </footer>
+
+  <script src="assets/js/clipboard.js"></script>
+  <script src="assets/js/search.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

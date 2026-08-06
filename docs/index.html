@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vistaar — Build production-ready apps in minutes</title>
+  <meta name="description" content="Vistaar is an open-source project scaffolding CLI for modern full-stack applications." />
+  <link rel="icon" href="assets/images/favicon.ico" sizes="any" />
+  <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/code.css" />
+  <script src="assets/js/theme.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <button type="button" class="icon-btn mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open navigation">☰</button>
+      <a class="brand" href="index.html">
+        <img src="assets/images/logo.png" alt="" width="auto" height="28" />
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html" data-nav>Home</a>
+        <a href="getting-started.html" data-nav>Getting Started</a>
+        <a href="installation.html" data-nav>Installation</a>
+        <a href="cli.html" data-nav>CLI</a>
+        <a href="roadmap.html" data-nav>Roadmap</a>
+        <a href="faq.html" data-nav>FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="search-wrap">
+          <button type="button" class="icon-btn search-toggle" id="search-toggle" aria-label="Open search">⌕</button>
+          <label class="visually-hidden" for="site-search">Search docs</label>
+          <input class="search-box" id="site-search" type="search" placeholder="Search docs…" autocomplete="off" />
+          <div class="search-results" id="search-results" data-open="false" role="listbox"></div>
+        </div>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch theme">☀</button>
+        <a class="btn btn-ghost" href="https://github.com/vistaar-rbhanji/create-vistaar" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" aria-label="Docs">
+      <h2>Documentation</h2>
+      <nav>
+        <a href="index.html" data-nav>Home</a>
+        <a href="getting-started.html" data-nav>Getting Started</a>
+        <a href="installation.html" data-nav>Installation</a>
+        <a href="cli.html" data-nav>CLI Reference</a>
+        <a href="roadmap.html" data-nav>Roadmap</a>
+        <a href="faq.html" data-nav>FAQ</a>
+      </nav>
+    </aside>
+
+    <main id="main" class="content">
+      <section class="hero">
+        <div class="hero-panel">
+          <p class="eyebrow">Open-source scaffolding CLI</p>
+          <h1>Build Production-Ready Applications in Minutes</h1>
+          <p class="lede">
+            Vistaar is an open-source project scaffolding CLI that helps developers create modern
+            full-stack applications from a single command.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="getting-started.html">Get Started</a>
+            <a class="btn btn-secondary" href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+          <div class="install-strip" aria-label="Install command">
+            <span>$</span>
+            <code>npx create-vistaar</code>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="section-head">
+          <h2>Everything you need to start</h2>
+          <p>Pick your stack once. Vistaar scaffolds frontend, backend, database, Docker, and modules.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card"><div class="feature-icon">R</div><h3>React</h3><p>Vite-powered React apps with TypeScript or JavaScript.</p></article>
+          <article class="card"><div class="feature-icon">E</div><h3>Express</h3><p>Node backends with typed routes and health checks.</p></article>
+          <article class="card"><div class="feature-icon">F</div><h3>FastAPI</h3><p>Python APIs when you want a FastAPI backend.</p></article>
+          <article class="card"><div class="feature-icon">P</div><h3>PostgreSQL</h3><p>Prisma or Drizzle ORM templates ready to migrate.</p></article>
+          <article class="card"><div class="feature-icon">M</div><h3>MongoDB</h3><p>Mongoose models and seed scripts out of the box.</p></article>
+          <article class="card"><div class="feature-icon">D</div><h3>Docker</h3><p>Compose files for local multi-service development.</p></article>
+          <article class="card"><div class="feature-icon">A</div><h3>Authentication</h3><p>Optional auth module wired into your generated stack.</p></article>
+          <article class="card"><div class="feature-icon">H</div><h3>Health Check</h3><p>Live API health and setup status from day one.</p></article>
+          <article class="card"><div class="feature-icon">C</div><h3>CLI Tools</h3><p><code>create-vistaar</code> to scaffold, <code>vistaar</code> to manage.</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="cli-preview">
+        <div class="section-head">
+          <h2>CLI Preview</h2>
+          <p>Scaffold a project, then diagnose it with the management CLI.</p>
+        </div>
+        <pre><code>npx create-vistaar
+cd my-app
+npm run dev
+vistaar doctor</code></pre>
+      </section>
+
+      <section class="section" id="roadmap-preview">
+        <div class="section-head">
+          <h2>Roadmap Preview</h2>
+          <p>Shipping solid scaffolding today — module marketplace and generators next.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <span class="badge badge-live">Live</span>
+            <h3>Scaffolding &amp; modules</h3>
+            <p>Interactive create flow, local modules, Docker, doctor, and setup wizard.</p>
+          </article>
+          <article class="card">
+            <span class="badge badge-soon">Coming soon</span>
+            <h3>Add · Generate · Update</h3>
+            <p>Install modules into existing apps, CRUD generators, and safe upgrades.</p>
+          </article>
+        </div>
+        <p class="more-link"><a href="roadmap.html">View full roadmap →</a></p>
+      </section>
+    </main>
+  </div>
+
+  <footer class="docs-footer">
+    <div class="container">
+      <span>© Vistaar — open-source project scaffolding</span>
+      <span>
+        <a href="getting-started.html">Docs</a>
+        ·
+        <a href="https://github.com/vistaar-rbhanji/create-vistaar" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="assets/js/clipboard.js"></script>
+  <script src="assets/js/search.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

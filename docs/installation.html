@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Installation — Vistaar</title>
+  <meta name="description" content="Install Vistaar with npx, npm, globally or locally. Update and uninstall guides." />
+  <link rel="icon" href="assets/images/favicon.ico" sizes="any" />
+  <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/code.css" />
+  <script src="assets/js/theme.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <button type="button" class="icon-btn mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open navigation">☰</button>
+      <a class="brand" href="index.html">
+        <img src="assets/images/logo.png" alt="" width="28" height="28" />
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html" data-nav>Home</a>
+        <a href="getting-started.html" data-nav>Getting Started</a>
+        <a href="installation.html" data-nav>Installation</a>
+        <a href="cli.html" data-nav>CLI</a>
+        <a href="roadmap.html" data-nav>Roadmap</a>
+        <a href="faq.html" data-nav>FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="search-wrap">
+          <button type="button" class="icon-btn search-toggle" id="search-toggle" aria-label="Open search">⌕</button>
+          <label class="visually-hidden" for="site-search">Search docs</label>
+          <input class="search-box" id="site-search" type="search" placeholder="Search docs…" autocomplete="off" />
+          <div class="search-results" id="search-results" data-open="false" role="listbox"></div>
+        </div>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch theme">☀</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" aria-label="Docs">
+      <h2>Documentation</h2>
+      <nav>
+        <a href="index.html" data-nav>Home</a>
+        <a href="getting-started.html" data-nav>Getting Started</a>
+        <a href="installation.html" data-nav>Installation</a>
+        <a href="cli.html" data-nav>CLI Reference</a>
+        <a href="roadmap.html" data-nav>Roadmap</a>
+        <a href="faq.html" data-nav>FAQ</a>
+      </nav>
+      <h2>On this page</h2>
+      <nav>
+        <a href="#npx">Using npx</a>
+        <a href="#npm">Using npm</a>
+        <a href="#global">Global install</a>
+        <a href="#local">Local install</a>
+        <a href="#updating">Updating</a>
+        <a href="#uninstalling">Uninstalling</a>
+      </nav>
+    </aside>
+
+    <main id="main" class="content prose">
+      <h1>Installation</h1>
+      <p class="lede">Prefer <code>npx</code> for one-off scaffolds. Install globally when you use Vistaar often.</p>
+
+      <h2 id="npx">Using npx</h2>
+      <p>No permanent install required. Always runs a recent published version:</p>
+      <pre><code>npx create-vistaar</code></pre>
+
+      <h2 id="npm">Using npm</h2>
+      <p>Install the package, then run the binaries from your shell:</p>
+      <pre><code>npm install -g create-vistaar
+create-vistaar
+vistaar doctor</code></pre>
+
+      <h2 id="global">Global installation</h2>
+      <pre><code>npm install -g create-vistaar</code></pre>
+      <p>This exposes both <code>create-vistaar</code> (scaffold) and <code>vistaar</code> (manage).</p>
+
+      <h2 id="local">Local installation</h2>
+      <p>Useful inside a monorepo or when developing the CLI itself:</p>
+      <pre><code>npm install create-vistaar --save-dev
+npx create-vistaar
+npx vistaar doctor</code></pre>
+      <div class="callout">
+        <p>For contributors: clone the repo, run <code>npm install</code>, then <code>npm run build</code> and <code>npm link</code>.</p>
+      </div>
+
+      <h2 id="updating">Updating</h2>
+      <pre><code>npm update -g create-vistaar
+# or
+npm install -g create-vistaar@latest</code></pre>
+
+      <h2 id="uninstalling">Uninstalling</h2>
+      <pre><code>npm uninstall -g create-vistaar</code></pre>
+    </main>
+  </div>
+
+  <footer class="docs-footer">
+    <div class="container">
+      <span>© Vistaar — open-source project scaffolding</span>
+      <span><a href="getting-started.html">Getting Started</a> · <a href="cli.html">CLI</a></span>
+    </div>
+  </footer>
+
+  <script src="assets/js/clipboard.js"></script>
+  <script src="assets/js/search.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

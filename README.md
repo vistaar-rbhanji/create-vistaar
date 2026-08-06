@@ -151,6 +151,12 @@ modules/            Local self-contained modules (auth, docker, stubs, …)
 ```
 
 See [MODULES.md](./MODULES.md) for how to author and register modules.
+
+## Documentation
+
+Open the static docs site (HTML/CSS/vanilla JS — no build step):
+
+- [docs/index.html](./docs/index.html) — Getting Started, Installation, CLI, Roadmap, FAQ
 `TemplateEngine` depends on a `FileSystemPort` (default: fs-extra adapter) so tests and alternate roots inject cleanly.
 
 ## License

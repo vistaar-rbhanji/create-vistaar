@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roadmap — Vistaar</title>
+  <meta name="description" content="Current features, upcoming work, and the long-term vision for Vistaar." />
+  <link rel="icon" href="assets/images/favicon.ico" sizes="any" />
+  <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/code.css" />
+  <script src="assets/js/theme.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <button type="button" class="icon-btn mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open navigation">☰</button>
+      <a class="brand" href="index.html">
+        <img src="assets/images/logo.png" alt="" width="28" height="28" />
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html" data-nav>Home</a>
+        <a href="getting-started.html" data-nav>Getting Started</a>
+        <a href="installation.html" data-nav>Installation</a>
+        <a href="cli.html" data-nav>CLI</a>
+        <a href="roadmap.html" data-nav>Roadmap</a>
+        <a href="faq.html" data-nav>FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="search-wrap">
+          <button type="button" class="icon-btn search-toggle" id="search-toggle" aria-label="Open search">⌕</button>
+          <label class="visually-hidden" for="site-search">Search docs</label>
+          <input class="search-box" id="site-search" type="search" placeholder="Search docs…" autocomplete="off" />
+          <div class="search-results" id="search-results" data-open="false" role="listbox"></div>
+        </div>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch theme">☀</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" aria-label="Docs">
+      <h2>Documentation</h2>
+      <nav>
+        <a href="index.html" data-nav>Home</a>
+        <a href="getting-started.html" data-nav>Getting Started</a>
+        <a href="installation.html" data-nav>Installation</a>
+        <a href="cli.html" data-nav>CLI Reference</a>
+        <a href="roadmap.html" data-nav>Roadmap</a>
+        <a href="faq.html" data-nav>FAQ</a>
+      </nav>
+      <h2>On this page</h2>
+      <nav>
+        <a href="#current">Current</a>
+        <a href="#upcoming">Upcoming</a>
+        <a href="#future">Future vision</a>
+      </nav>
+    </aside>
+
+    <main id="main" class="content prose">
+      <h1>Roadmap</h1>
+      <p class="lede">Where Vistaar is today, what ships next, and the longer-term direction.</p>
+
+      <h2 id="current">Current Features</h2>
+      <div class="timeline">
+        <article class="timeline-item live card">
+          <span class="badge badge-live">Live</span>
+          <h3>Interactive scaffolding</h3>
+          <p>Prompt-driven <code>create-vistaar</code> with React, Express/FastAPI, Postgres/Mongo, and more.</p>
+        </article>
+        <article class="timeline-item live card">
+          <span class="badge badge-live">Live</span>
+          <h3>Local module system</h3>
+          <p>Repo modules with <code>module.json</code> and a stable <code>install(context)</code> API.</p>
+        </article>
+        <article class="timeline-item live card">
+          <span class="badge badge-live">Live</span>
+          <h3>Welcome dashboard &amp; setup wizard</h3>
+          <p>Health checks, setup status, doctor scripts, and copyable next steps.</p>
+        </article>
+        <article class="timeline-item live card">
+          <span class="badge badge-live">Live</span>
+          <h3>Dual CLI</h3>
+          <p><code>create-vistaar</code> for creation, <code>vistaar</code> for management.</p>
+        </article>
+      </div>
+
+      <h2 id="upcoming">Upcoming Features</h2>
+      <div class="grid-2">
+        <article class="card">
+          <span class="badge badge-soon">Coming soon</span>
+          <h3>vistaar add</h3>
+          <p>Install catalog modules into existing apps without re-scaffolding.</p>
+        </article>
+        <article class="card">
+          <span class="badge badge-soon">Coming soon</span>
+          <h3>vistaar generate</h3>
+          <p>CRUD and resource generators wired to your chosen stack.</p>
+        </article>
+        <article class="card">
+          <span class="badge badge-soon">Coming soon</span>
+          <h3>vistaar update</h3>
+          <p>Guided upgrades for templates, configs, and tooling.</p>
+        </article>
+        <article class="card">
+          <span class="badge badge-soon">Coming soon</span>
+          <h3>Richer module catalog</h3>
+          <p>RBAC, S3, Swagger, email, Redis — beyond today’s stubs.</p>
+        </article>
+      </div>
+
+      <h2 id="future">Future Vision</h2>
+      <div class="timeline">
+        <article class="timeline-item card">
+          <h3>Module marketplace</h3>
+          <p>Discover and publish community modules with versioned installs.</p>
+        </article>
+        <article class="timeline-item card">
+          <h3>Standalone vistaar package</h3>
+          <p>Management CLI that works cleanly even when create is a separate install.</p>
+        </article>
+        <article class="timeline-item card">
+          <h3>More stacks</h3>
+          <p>Additional frontends, backends, and cloud deploy targets over time.</p>
+        </article>
+      </div>
+    </main>
+  </div>
+
+  <footer class="docs-footer">
+    <div class="container">
+      <span>© Vistaar — open-source project scaffolding</span>
+      <span><a href="cli.html">CLI</a> · <a href="faq.html">FAQ</a></span>
+    </div>
+  </footer>
+
+  <script src="assets/js/clipboard.js"></script>
+  <script src="assets/js/search.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

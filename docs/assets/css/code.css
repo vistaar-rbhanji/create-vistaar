@@ -1,0 +1,44 @@
+/* Code blocks + copy button */
+
+.pre-wrap {
+  position: relative;
+  margin: 1rem 0 1.35rem;
+}
+
+.pre-wrap pre {
+  margin: 0;
+  overflow-x: auto;
+  background: var(--code-bg);
+  color: #e2e8f0;
+  border: 1px solid #1e293b;
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.1rem;
+  padding-right: 4.5rem;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.pre-wrap .copy-btn {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 0.3rem 0.55rem;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pre-wrap .copy-btn:hover {
+  background: #334155;
+}
+
+.pre-wrap .copy-btn[data-copied="true"] {
+  color: #4ade80;
+  border-color: #166534;
+}
