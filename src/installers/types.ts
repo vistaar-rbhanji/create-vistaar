@@ -8,7 +8,7 @@
  */
 
 import type { GenerationResult, ProjectPaths } from "../generators/index.js";
-import type { LoadedModule } from "../modules/index.js";
+import type { LoadedModule } from "../module-system/index.js";
 import type { ProjectConfig } from "../types/index.js";
 
 export interface InstallerContext {

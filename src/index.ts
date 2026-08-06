@@ -1,37 +1,17 @@
 #!/usr/bin/env node
 /**
- * CLI entry point for create-vistaar.
+ * create-vistaar entry — project creation only (Version 1).
  *
- * Architectural decisions:
- * 1. Commander owns argv parsing only — business flow lives in commands/.
- * 2. Default action (no subcommand) runs the interactive create flow so
- *    `npx create-vistaar` matches the product UX users expect.
- * 3. ESM + TypeScript compile to dist/; the shebang makes the bin executable
- *    after `npm link` / publish.
- * 4. Folders for generators, template-engine, and installers exist as stubs
- *    so Phase 2 can land without restructuring the package.
+ * Architectural decision (Phase 9):
+ * This binary registers creation commands exclusively. Management lives in
+ * `vistaar` so scaffolding never tightly couples to add/generate/update.
  */
 
-import { Command } from "commander";
-
-import { runCreateCommand } from "./commands/index.js";
+import { buildCreateProgram } from "./cli/create-program.js";
 import { logger } from "./utils/index.js";
 
 async function main(): Promise<void> {
-  const program = new Command();
-
-  program
-    .name("create-vistaar")
-    .description(
-      "Bootstrap full-stack projects from interactive prompts and reusable templates",
-    )
-    .version("0.1.0")
-    // Default command: interactive create. Subcommands can be added later
-    // without breaking the primary `npx create-vistaar` experience.
-    .action(async () => {
-      await runCreateCommand();
-    });
-
+  const program = buildCreateProgram();
   await program.parseAsync(process.argv);
 }
 

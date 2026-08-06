@@ -1,0 +1,12 @@
+﻿{
+  "name": "email",
+  "displayName": "Email",
+  "version": "0.0.0",
+  "description": "Transactional email (architecture placeholder).",
+  "compatibleWith": ["express", "fastapi"],
+  "dependencies": [],
+  "npmPackages": {},
+  "postInstallCommands": [],
+  "templateFolders": {},
+  "features": ["Reserved for vistaar add email"]
+}

@@ -9,19 +9,24 @@
     },
     "preferGlobal": true,
     "bin": {
-        "create-vistaar": "./dist/index.js"
+        "create-vistaar": "./dist/index.js",
+        "vistaar": "./dist/vistaar.js"
     },
     "files": [
         "dist",
         "templates",
+        "modules",
         "README.md",
+        "MODULES.md",
         "LICENSE"
     ],
     "scripts": {
         "clean": "rimraf dist",
-        "build": "npm run clean && tsc",
+        "build": "tsc",
         "dev": "tsx src/index.ts",
+        "dev:vistaar": "tsx src/vistaar.ts",
         "start": "node dist/index.js",
+        "start:vistaar": "node dist/vistaar.js",
         "typecheck": "tsc --noEmit",
         "prepublishOnly": "npm run build"
     },

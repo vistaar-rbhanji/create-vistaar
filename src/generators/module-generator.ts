@@ -1,18 +1,14 @@
 /**
- * ModuleGenerator — applies modules selected from module.json enabledWhen rules.
+ * ModuleGenerator — installs modules selected by ModuleRegistry.
  *
- * Architectural decision:
- * This generator never mentions "auth" (or any module id). ModuleLoader reads
- * the catalog; resolveModulesForConfig matches ProjectConfig; ModuleApplier
- * copies whatever the manifests describe.
+ * Never hardcodes module names. Asks the registry, then calls install().
  */
 
 import {
-  ModuleApplier,
-  ModuleLoader,
-  resolveModulesForConfig,
-  type LoadedModule,
-} from "../modules/index.js";
+  ModuleRegistry,
+  standardInstall,
+  type RegisteredModule,
+} from "../module-system/index.js";
 import type { ProjectConfig } from "../types/index.js";
 import type { Generator, GeneratorContext } from "./types.js";
 
@@ -20,47 +16,46 @@ export class ModuleGenerator implements Generator {
   readonly id = "modules";
   readonly label = "Modules";
 
-  private readonly loader: ModuleLoader;
-  private readonly applier: ModuleApplier;
-  private applied: LoadedModule[] = [];
+  private readonly registry: ModuleRegistry;
+  private applied: RegisteredModule[] = [];
 
-  constructor(loader: ModuleLoader, applier: ModuleApplier = new ModuleApplier()) {
-    this.loader = loader;
-    this.applier = applier;
+  constructor(registry: ModuleRegistry) {
+    this.registry = registry;
   }
 
-  /**
-   * Runs when at least one catalog module would be enabled for this config.
-   * Cheap sync check is impossible without I/O — always return true and
-   * no-op inside generate when the resolved set is empty.
-   */
   supports(_config: ProjectConfig): boolean {
     return true;
   }
 
   async generate(context: GeneratorContext): Promise<void> {
-    const catalog = await this.loader.loadAll();
-    const selected = resolveModulesForConfig(context.config, catalog);
+    const selected = await this.registry.resolveForConfig(context.config);
     this.applied = [];
 
-    if (selected.length === 0) {
-      return;
-    }
-
     for (const mod of selected) {
-      await this.applier.apply(mod, {
-        config: context.config,
-        engine: context.engine,
+      await mod.install({
+        projectPath: context.paths.root,
         paths: context.paths,
+        config: context.config,
+        stack: {
+          frontend: context.config.frontend,
+          backend: context.config.backend,
+          language: context.config.language,
+          database: context.config.database,
+          orm: context.config.orm,
+          uiFramework: context.config.uiFramework,
+        },
         variables: context.variables,
+        engine: context.engine,
+        moduleRoot: mod.rootDir,
+        manifest: mod.manifest,
+        helpers: { standardInstall },
       });
       this.applied.push(mod);
       context.appliedModules.push(mod);
     }
   }
 
-  /** Modules applied during the last generate() call. */
-  getAppliedModules(): readonly LoadedModule[] {
+  getAppliedModules(): readonly RegisteredModule[] {
     return this.applied;
   }
 }

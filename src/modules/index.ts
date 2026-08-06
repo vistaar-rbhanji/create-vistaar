@@ -1,24 +1,24 @@
 /**
- * Modules public API — configuration-driven optional feature packs.
+ * Compatibility barrel — prefer importing from `../module-system/index.js`.
+ *
+ * Old ModuleLoader / ModuleApplier APIs are replaced by ModuleRegistry +
+ * standardInstall. These re-exports keep existing import paths compiling.
  */
 
-export { ModuleApplier } from "./module-applier.js";
-export type {
-  ModuleApplyResult,
-  ModuleApplierContext,
-} from "./module-applier.js";
-export { ModuleLoader, ModuleLoadError } from "./module-loader.js";
-export type { ModuleLoaderOptions } from "./module-loader.js";
-export { resolveModulePlan } from "./module-plan.js";
-export { resolveModulesForConfig } from "./module-resolver.js";
-export type {
-  LoadedModule,
-  ModuleEnabledWhen,
-  ModuleEnvExample,
-  ModuleManifest,
-  ModuleNpmPackageSet,
-  ModulePostInstallCommand,
-  ModuleTemplateFolders,
-  ModuleVariant,
-  ResolvedModulePlan,
-} from "./types.js";
+export {
+  ModuleRegistry as ModuleLoader,
+  ModuleRegistryError as ModuleLoadError,
+  ModuleRegistry,
+  ModuleRegistryError,
+  resolveModulePlan,
+  standardInstall,
+  type LoadedModule,
+  type ModuleContext,
+  type ModuleManifest,
+  type ModuleRegistryOptions as ModuleLoaderOptions,
+  type RegisteredModule,
+  type ResolvedModulePlan,
+} from "../module-system/index.js";
+
+/** @deprecated Use resolveForConfig on ModuleRegistry. */
+export { isModuleCompatible } from "../module-system/index.js";

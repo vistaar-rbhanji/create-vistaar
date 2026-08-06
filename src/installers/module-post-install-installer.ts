@@ -6,7 +6,7 @@
 
 import path from "node:path";
 
-import { resolveModulePlan } from "../modules/module-plan.js";
+import { resolveModulePlan } from "../module-system/index.js";
 import type { ProjectConfig } from "../types/index.js";
 import { logger } from "../utils/index.js";
 import { runCommand } from "./run-command.js";

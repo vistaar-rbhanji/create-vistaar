@@ -1,0 +1,12 @@
+﻿{
+  "name": "aws-s3",
+  "displayName": "AWS S3",
+  "version": "0.0.0",
+  "description": "Object storage integration (architecture placeholder).",
+  "compatibleWith": ["express", "fastapi"],
+  "dependencies": [],
+  "npmPackages": {},
+  "postInstallCommands": [],
+  "templateFolders": {},
+  "features": ["Reserved for vistaar add aws-s3"]
+}

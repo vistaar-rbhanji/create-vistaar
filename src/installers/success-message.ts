@@ -7,7 +7,7 @@ import path from "node:path";
 import chalk from "chalk";
 
 import type { GenerationResult } from "../generators/index.js";
-import { resolveModulePlan } from "../modules/module-plan.js";
+import { resolveModulePlan } from "../module-system/index.js";
 import type { ProjectConfig } from "../types/index.js";
 import { logger } from "../utils/index.js";
 import type { InstallerOutcome } from "./types.js";

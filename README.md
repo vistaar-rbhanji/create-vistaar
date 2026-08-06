@@ -10,6 +10,8 @@ Interactive CLI that bootstraps full-stack projects from reusable templates.
 > **Phase 6:** First company module `auth` — variants for TS/JS + Express/FastAPI; feature summary from `module.json`.
 > **Phase 7:** Welcome Dashboard — live `GET /api/app-info` + `GET /api/health` (FE → API → DB/seed).
 > **Phase 8:** Setup Wizard — `GET /api/setup-status`, doctor/scripts, stack-specific README; wizard until setup completes.
+> **Phase 9:** Dual CLI architecture — `create-vistaar` (scaffold) + `vistaar` (manage); reusable `execute()` commands.
+> **Phase 10:** Local module system — `modules/*` + `ModuleRegistry` + stable `install(context)` (see MODULES.md).
 
 ## Requirements
 
@@ -20,15 +22,39 @@ Interactive CLI that bootstraps full-stack projects from reusable templates.
 ```bash
 # Development
 npm install
-npm run dev
+npm run dev              # create-vistaar
+npm run dev:vistaar      # vistaar management CLI
 
 # After build
 npm run build
 node dist/index.js
+node dist/vistaar.js
 
-# Linked globally (simulates npx)
+# Linked globally
 npm link
 create-vistaar
+vistaar doctor
+vistaar add auth         # coming soon
+```
+
+## CLI architecture (Phase 9)
+
+| Binary | Responsibility |
+| --- | --- |
+| `create-vistaar` | Project **creation** only (Version 1) |
+| `vistaar` | Project **management** (doctor today; add/generate/update coming soon) |
+
+Commands live under `src/commands/<name>/` and export `execute(context)` with **no Commander dependency**. Entry points only register commands — so the same modules can later ship in a standalone `vistaar` package.
+
+```
+src/commands/
+  create/      scaffold
+  doctor/      diagnose generated projects
+  add/         coming soon (module marketplace)
+  generate/    coming soon (crud, etc.)
+  update/      coming soon
+  shared/      coming-soon helpers, future module ids
+src/cli/       Commander registration only
 ```
 
 ## Prompts
@@ -112,16 +138,19 @@ The first module is **auth** (stubs only — no real authentication logic). The 
 
 ```
 src/
-  commands/         CLI actions (orchestration)
-  prompts/          Question registry + collector
-  generators/       Frontend / UI / Backend / Database / ORM / Docker / Modules
+  cli/              Commander registration (create-vistaar / vistaar)
+  commands/         Reusable execute() modules (create, doctor, add, …)
+  module-system/    ModuleRegistry, standardInstall, stable install(context) API
+  generators/       Frontend / UI / Backend / Database / ORM / Modules
   template-engine/  find / validate / copy / {{var}} substitution
-  modules/          ModuleLoader / resolver / applier (module.json-driven)
   installers/       npm / git / husky / ESLint+Prettier / db setup / module post-install
+  prompts/          Question registry + collector
   types/            Strongly typed ProjectConfig
   utils/            Logging and config printing
+modules/            Local self-contained modules (auth, docker, stubs, …)
 ```
 
+See [MODULES.md](./MODULES.md) for how to author and register modules.
 `TemplateEngine` depends on a `FileSystemPort` (default: fs-extra adapter) so tests and alternate roots inject cleanly.
 
 ## License

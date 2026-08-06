@@ -1,0 +1,12 @@
+﻿{
+  "name": "redis",
+  "displayName": "Redis",
+  "version": "0.0.0",
+  "description": "Redis caching / queues (architecture placeholder).",
+  "compatibleWith": ["express", "fastapi"],
+  "dependencies": [],
+  "npmPackages": {},
+  "postInstallCommands": [],
+  "templateFolders": {},
+  "features": ["Reserved for vistaar add redis"]
+}

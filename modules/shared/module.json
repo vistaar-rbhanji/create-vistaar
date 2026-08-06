@@ -1,0 +1,11 @@
+﻿{
+  "name": "shared",
+  "displayName": "Shared",
+  "version": "1.0.0",
+  "description": "Shared helpers and conventions for Vistaar modules (not installable).",
+  "compatibleWith": [],
+  "dependencies": [],
+  "npmPackages": {},
+  "postInstallCommands": [],
+  "templateFolders": {}
+}

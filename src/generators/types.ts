@@ -7,7 +7,7 @@
  * editing siblings. `supports()` lets generators self-skip (backend: none).
  */
 
-import type { LoadedModule } from "../modules/index.js";
+import type { LoadedModule } from "../module-system/index.js";
 import type {
   TemplateEngine,
   TemplateVariables,

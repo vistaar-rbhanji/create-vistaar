@@ -1,0 +1,22 @@
+{
+  "name": "docker",
+  "displayName": "Docker",
+  "version": "1.0.0",
+  "description": "Docker Compose and Dockerfiles for local full-stack development.",
+  "compatibleWith": ["express", "fastapi", "none"],
+  "dependencies": [],
+  "enabledWhen": {
+    "field": "docker",
+    "equals": true
+  },
+  "npmPackages": {},
+  "postInstallCommands": [],
+  "templateFolders": {
+    "root": "root"
+  },
+  "features": [
+    "docker-compose.yml",
+    "Dockerfile.frontend / Dockerfile.backend",
+    ".dockerignore"
+  ]
+}

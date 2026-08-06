@@ -1,0 +1,12 @@
+﻿{
+  "name": "swagger",
+  "displayName": "Swagger",
+  "version": "0.0.0",
+  "description": "OpenAPI / Swagger docs (architecture placeholder).",
+  "compatibleWith": ["express", "fastapi"],
+  "dependencies": [],
+  "npmPackages": {},
+  "postInstallCommands": [],
+  "templateFolders": {},
+  "features": ["Reserved for vistaar add swagger"]
+}

@@ -17,7 +17,7 @@ import path from "node:path";
 import fs from "fs-extra";
 import ora, { type Ora } from "ora";
 
-import type { LoadedModule } from "../modules/index.js";
+import type { LoadedModule } from "../module-system/index.js";
 import {
   createTemplateVariables,
   TemplateEngine,
@@ -26,7 +26,6 @@ import type { ProjectConfig } from "../types/index.js";
 import { logger } from "../utils/index.js";
 import { BackendGenerator } from "./backend-generator.js";
 import { DatabaseGenerator } from "./database-generator.js";
-import { DockerGenerator } from "./docker-generator.js";
 import { FrontendGenerator } from "./frontend-generator.js";
 import { ModuleGenerator } from "./module-generator.js";
 import { OrmGenerator } from "./orm-generator.js";
@@ -44,15 +43,11 @@ export interface ProjectGeneratorOptions {
   readonly engine: TemplateEngine;
   /**
    * Ordered generators. Defaults to
-   * frontend → ui → backend → database → orm → docker → project-root → readme → modules.
+   * frontend → ui → backend → database → orm → project-root → readme → modules.
+   * Docker is installed as a module (modules/docker), not a dedicated generator.
    */
   readonly generators?: readonly Generator[];
-  /** Parent directory that will contain `<projectName>/`. Defaults to cwd. */
   readonly cwd?: string;
-  /**
-   * Optional ModuleGenerator. When `generators` is omitted, this is appended
-   * automatically if provided (create command supplies a ModuleLoader-backed one).
-   */
   readonly moduleGenerator?: ModuleGenerator;
 }
 
@@ -74,7 +69,6 @@ export class ProjectGenerator {
         new BackendGenerator(),
         new DatabaseGenerator(),
         new OrmGenerator(),
-        new DockerGenerator(),
         new RootExtrasGenerator(),
         new ReadmeGenerator(),
       ];

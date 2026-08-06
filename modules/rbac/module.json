@@ -1,0 +1,12 @@
+{
+  "name": "rbac",
+  "displayName": "RBAC",
+  "version": "0.0.0",
+  "description": "Role-based access control (architecture placeholder).",
+  "compatibleWith": ["express", "fastapi"],
+  "dependencies": ["auth"],
+  "npmPackages": {},
+  "postInstallCommands": [],
+  "templateFolders": {},
+  "features": ["Reserved for vistaar add rbac"]
+}
