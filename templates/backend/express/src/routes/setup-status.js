@@ -61,7 +61,7 @@ router.get("/", async (_req, res) => {
     backendRunning: true,
     frontendRunning: true,
     dockerEnabled: seedData.docker === "Enabled",
-    authenticationEnabled: seedData.authentication === "Enabled",
+    authenticationEnabled: seedData.authentication !== "Disabled",
     setupComplete,
     dbName: "{{DB_NAME}}",
     commands: {

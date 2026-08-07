@@ -8,6 +8,7 @@
  */
 
 import type {
+  AuthProvider,
   BackendFramework,
   DatabaseEngine,
   FrontendFramework,
@@ -91,3 +92,4 @@ export type UiChoice = PromptChoice<UiFramework>;
 export type BackendChoice = PromptChoice<BackendFramework>;
 export type DatabaseChoice = PromptChoice<DatabaseEngine>;
 export type OrmChoice = PromptChoice<OrmAdapter>;
+export type AuthChoice = PromptChoice<AuthProvider>;

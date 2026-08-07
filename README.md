@@ -12,6 +12,9 @@ Interactive CLI that bootstraps full-stack projects from reusable templates.
 > **Phase 8:** Setup Wizard — `GET /api/setup-status`, doctor/scripts, stack-specific README; wizard until setup completes.
 > **Phase 9:** Dual CLI architecture — `create-vistaar` (scaffold) + `vistaar` (manage); reusable `execute()` commands.
 > **Phase 10:** Local module system — `modules/*` + `ModuleRegistry` + stable `install(context)` (see MODULES.md).
+> **Phase 11:** Static end-user docs site (`docs/`).
+> **Phase 12:** Internal engineering handbook (`project-docs/`).
+> **Phase 13:** Base Auth — integrate `modules/base-auth` via `modules/auth` (`authentication: none | base-auth`).
 
 ## Requirements
 
@@ -68,7 +71,7 @@ src/cli/       Commander registration only
 | Backend | Express, FastAPI, None |
 | Database | PostgreSQL, MongoDB, None |
 | ORM | Prisma / Drizzle (PostgreSQL), Mongoose (MongoDB); skipped if no DB |
-| Authentication | Yes / No |
+| Authentication | None, Base Auth (Express + PostgreSQL only) |
 | Docker | Yes / No |
 | Git | Yes / No |
 | Husky | Yes / No |
@@ -154,9 +157,9 @@ See [MODULES.md](./MODULES.md) for how to author and register modules.
 
 ## Documentation
 
-Open the static docs site (HTML/CSS/vanilla JS — no build step):
+- End-user site: [docs/index.html](./docs/index.html) (static HTML/CSS/JS — no build step)
+- Internal engineering handbook: [project-docs/](./project-docs/) — contributors & AI should start with [11-ai-context.md](./project-docs/11-ai-context.md)
 
-- [docs/index.html](./docs/index.html) — Getting Started, Installation, CLI, Roadmap, FAQ
 `TemplateEngine` depends on a `FileSystemPort` (default: fs-extra adapter) so tests and alternate roots inject cleanly.
 
 ## License

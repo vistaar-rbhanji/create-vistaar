@@ -9,6 +9,7 @@
  */
 
 import type {
+  AuthChoice,
   BackendChoice,
   DatabaseChoice,
   FrontendChoice,
@@ -17,7 +18,12 @@ import type {
   QuestionDefinition,
   UiChoice,
 } from "../types/index.js";
-import type { DatabaseEngine, OrmAdapter } from "../types/index.js";
+import type {
+  AuthProvider,
+  BackendFramework,
+  DatabaseEngine,
+  OrmAdapter,
+} from "../types/index.js";
 
 const FRONTEND_CHOICES: readonly FrontendChoice[] = [
   { name: "React", value: "react" },
@@ -85,6 +91,62 @@ function resolveOrmChoices(
 }
 
 /**
+ * Base Auth requires Express + PostgreSQL (raw `pg` + Redis + mail in base-auth).
+ * Unsupported stacks only see "None" so we never scaffold a broken auth setup.
+ */
+export function isBaseAuthCompatible(answers: {
+  backend?: BackendFramework | undefined;
+  database?: DatabaseEngine | undefined;
+}): boolean {
+  return answers.backend === "express" && answers.database === "postgresql";
+}
+
+function resolveAuthChoices(
+  answers: Record<string, unknown>,
+): readonly AuthChoice[] {
+  const none: AuthChoice = { name: "None", value: "none" };
+  if (
+    !isBaseAuthCompatible({
+      backend: answers.backend as BackendFramework | undefined,
+      database: answers.database as DatabaseEngine | undefined,
+    })
+  ) {
+    return [
+      {
+        name: "None (Base Auth needs Express + PostgreSQL)",
+        value: "none",
+      },
+    ];
+  }
+  return [
+    none,
+    {
+      name: "Base Auth (email OTP)",
+      value: "base-auth",
+    },
+  ];
+}
+
+/** Runtime check used by the auth module installer (same rules as prompts). */
+export function assertBaseAuthCompatible(config: {
+  backend: BackendFramework;
+  database: DatabaseEngine;
+  authentication: AuthProvider;
+}): void {
+  if (config.authentication !== "base-auth") {
+    return;
+  }
+  if (!isBaseAuthCompatible(config)) {
+    throw new Error(
+      "Authentication could not be installed.\n" +
+        "Reason: Base Auth is not compatible with " +
+        `${config.backend} + ${config.database}.\n` +
+        "Base Auth requires Express + PostgreSQL.",
+    );
+  }
+}
+
+/**
  * Ordered list of prompts shown by `npx create-vistaar`.
  * Order matters: conditional questions read earlier answers.
  */
@@ -133,10 +195,10 @@ export const CREATE_QUESTIONS: readonly QuestionDefinition[] = [
     resolveChoices: resolveOrmChoices,
   },
   {
-    type: "confirm",
+    type: "conditional-select",
     field: "authentication",
-    message: "Include authentication?",
-    defaultValue: false,
+    message: "Authentication:",
+    resolveChoices: resolveAuthChoices,
   },
   {
     type: "confirm",

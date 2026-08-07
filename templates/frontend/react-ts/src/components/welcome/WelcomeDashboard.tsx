@@ -1,7 +1,7 @@
 import { useAppInfo } from "../../hooks/useAppInfo";
 import { useHealth } from "../../hooks/useHealth";
 import { BACKEND_NAME, BACKEND_ORIGIN, FRONTEND_ORIGIN } from "../../services/config";
-import type { ServiceState } from "../../types/app";
+import type { AppInfo, ServiceState } from "../../types/app";
 import { ErrorCard } from "./ErrorCard";
 import { StatusBadge, type StatusBadgeState } from "./StatusBadge";
 import "./welcome.css";
@@ -50,12 +50,12 @@ export function WelcomeDashboard() {
           )}
           <div className="badge-row">
             <StatusBadge
-              label={"Authentication " + (appInfo ? appInfo.authentication : "Unknown")}
-              state={appInfo && appInfo.authentication === "Enabled" ? "ok" : "neutral"}
+              label={"Authentication " + authenticationLabel(appInfo)}
+              state={authenticationBadgeState(appInfo)}
             />
             <StatusBadge
-              label={"Docker " + (appInfo ? appInfo.docker : "Unknown")}
-              state={appInfo && appInfo.docker === "Enabled" ? "ok" : "neutral"}
+              label={"Docker " + dockerLabel(appInfo)}
+              state={dockerBadgeState(appInfo)}
             />
           </div>
         </div>
@@ -156,6 +156,28 @@ function InfoRow({ label, value }: { label: string; value: string }) {
       <dd>{value}</dd>
     </div>
   );
+}
+
+function authenticationLabel(appInfo: AppInfo | null): string {
+  return appInfo?.authentication ?? "Unknown";
+}
+
+function authenticationBadgeState(appInfo: AppInfo | null): StatusBadgeState {
+  if (!appInfo || appInfo.authentication === "Disabled") {
+    return "neutral";
+  }
+  return "ok";
+}
+
+function dockerLabel(appInfo: AppInfo | null): string {
+  return appInfo?.docker ?? "Unknown";
+}
+
+function dockerBadgeState(appInfo: AppInfo | null): StatusBadgeState {
+  if (!appInfo || appInfo.docker !== "Enabled") {
+    return "neutral";
+  }
+  return "ok";
 }
 
 function databaseLabel(state: ServiceState): string {

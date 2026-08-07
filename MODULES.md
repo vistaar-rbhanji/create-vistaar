@@ -74,7 +74,7 @@ Template paths in `module.json` are resolved as:
 | `name` | Registry id (`vistaar add auth`) |
 | `version` | Local semver (no remote checks yet) |
 | `compatibleWith` | Backend ids this module supports |
-| `enabledWhen` | Auto-install rule against `ProjectConfig` |
+| `enabledWhen` | Auto-install rule against `ProjectConfig` (e.g. `authentication === "base-auth"`) |
 | `dependencies` | Other local module names |
 | `templateFolders` | Map of project target → template subfolder |
 | `variants` | Stack-specific overlays (language/backend) |
@@ -86,6 +86,11 @@ Template paths in `module.json` are resolved as:
 ```ts
 install(context: ModuleContext): Promise<void>
 ```
+
+> **tsx note:** If both `install.js` and `install.ts` exist, `tsx` may resolve
+> `install.js` imports to `install.ts`. Prefer a single runtime `install.js`, or
+> keep the `.ts` twin exporting the same `install` function (do not import
+> `./install.js` from `install.ts` — that can deadlock under tsx).
 
 `ModuleContext` includes:
 

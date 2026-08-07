@@ -1,68 +1,53 @@
 ﻿{
   "name": "auth",
-  "displayName": "Authentication",
-  "version": "1.0.0",
-  "description": "JWT Authentication Module — scaffolds only, no auth logic yet.",
-  "compatibleWith": ["express", "fastapi", "none"],
+  "displayName": "Base Auth",
+  "version": "2.0.0",
+  "description": "Email OTP authentication from modules/base-auth (Express + PostgreSQL).",
+  "compatibleWith": ["express"],
   "dependencies": [],
   "enabledWhen": {
     "field": "authentication",
-    "equals": true
+    "equals": "base-auth"
   },
   "npmPackages": {
     "frontend": {
       "dependencies": {
-        "js-cookie": "^3.0.5"
-      }
-    },
-    "backend": {
-      "dependencies": {
-        "jsonwebtoken": "^9.0.2",
-        "bcryptjs": "^2.4.3"
+        "axios": "^1.13.6",
+        "react-router-dom": "^7.13.1",
+        "zod": "^4.3.6"
       }
     }
   },
   "postInstallCommands": [],
-  "templateFolders": {
-    "frontend": "frontend/typescript",
-    "backend": "backend/express"
-  },
+  "templateFolders": {},
   "variants": [
     {
-      "when": { "language": "javascript" },
-      "templateFolders": { "frontend": "frontend/javascript" }
+      "when": { "uiFramework": "bootstrap" },
+      "features": ["Bootstrap VistaarUI adapter"]
     },
     {
-      "when": { "backend": "fastapi" },
-      "templateFolders": { "backend": "backend/fastapi" },
-      "npmPackages": { "backend": {} },
-      "features": ["FastAPI auth router stub", "PyJWT / password helper placeholders"]
+      "when": { "uiFramework": "shadcn" },
+      "features": ["ShadCN/Tailwind-oriented VistaarUI adapter"]
     },
     {
-      "when": { "backend": "none" },
-      "templateFolders": { "backend": null },
-      "npmPackages": { "backend": {} }
+      "when": { "uiFramework": "material-ui" },
+      "features": ["Material UI VistaarUI adapter"]
     }
   ],
   "envExample": {
     "frontend": [
-      "VITE_AUTH_API_URL=http://localhost:3000",
-      "VITE_AUTH_COOKIE_NAME={{PACKAGE_NAME}}_token"
+      "VITE_API_BASE_URL={{AUTH_API_URL}}"
     ],
-    "backend": [
-      "JWT_SECRET=change-me",
-      "AUTH_TOKEN_TTL=1d",
-      "AUTH_COOKIE_NAME={{PACKAGE_NAME}}_token"
-    ]
+    "root": []
   },
-  "summaryTitle": "Installed authentication features",
+  "summaryTitle": "Installed Base Auth features",
   "features": [
-    "Login page scaffold",
-    "Register page scaffold",
-    "Auth context / provider stub",
-    "Auth API route stubs (login / register / me)",
-    "Token / password helper placeholders",
-    ".env.example auth variables",
-    "package.json dependency merge (npm install via installer)"
+    "Email OTP login / verify / logout / me (from base-auth)",
+    "Crypto key-exchange + secure API client",
+    "AuthProvider, ProtectedRoute, PublicOnlyRoute",
+    "UI adapter matched to selected UI framework",
+    "Standalone auth-api service (Express + PostgreSQL + Redis)",
+    "init-db.sql and admin seed scripts",
+    "Welcome/setup dashboard retained on main backend"
   ]
 }

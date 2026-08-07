@@ -36,6 +36,13 @@ export type DatabaseEngine = "postgresql" | "mongodb" | "none";
 export type OrmAdapter = "prisma" | "drizzle" | "mongoose";
 
 /**
+ * Authentication provider selected at create time.
+ * `none` — do not install auth files, deps, env, or routes.
+ * `base-auth` — install from modules/base-auth (Express + PostgreSQL email OTP).
+ */
+export type AuthProvider = "none" | "base-auth";
+
+/**
  * The complete project configuration collected from interactive prompts.
  *
  * This object is the single source of truth passed to generators, template
@@ -61,7 +68,7 @@ export interface ProjectConfig {
    */
   readonly orm: OrmAdapter | null;
 
-  readonly authentication: boolean;
+  readonly authentication: AuthProvider;
   readonly docker: boolean;
   readonly git: boolean;
   readonly husky: boolean;

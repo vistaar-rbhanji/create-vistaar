@@ -6,7 +6,7 @@ export interface AppInfo {
   database: string;
   orm: string;
   uiFramework: string;
-  authentication: string;
+  authentication: string; // "Disabled" | "Base Auth" | legacy "Enabled"
   docker: string;
   createdAt: string;
 }

@@ -155,10 +155,15 @@ export function createTemplateVariables(
     ORM: labelOrm(config),
     UI_FRAMEWORK: labelUi(config),
     UI_FRAMEWORK_SLUG: config.uiFramework,
-    AUTHENTICATION: config.authentication ? "Enabled" : "Disabled",
+    AUTHENTICATION:
+      config.authentication === "none" ? "Disabled" : "Base Auth",
+    AUTHENTICATION_PROVIDER: config.authentication,
     DOCKER: config.docker ? "Enabled" : "Disabled",
-    AUTHENTICATION_BOOL: config.authentication ? "true" : "false",
+    AUTHENTICATION_BOOL:
+      config.authentication === "none" ? "false" : "true",
     DOCKER_BOOL: config.docker ? "true" : "false",
+    AUTH_API_URL: "http://localhost:5000",
+    AUTH_API_PORT: "5000",
     CREATED_AT: createdAt,
 
     LANGUAGE: config.language,

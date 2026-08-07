@@ -5,6 +5,7 @@
  */
 
 export type {
+  AuthProvider,
   BackendFramework,
   DatabaseEngine,
   FrontendFramework,
@@ -16,6 +17,7 @@ export type {
 } from "./config.js";
 
 export type {
+  AuthChoice,
   BackendChoice,
   ConfirmQuestion,
   ConditionalSelectQuestion,

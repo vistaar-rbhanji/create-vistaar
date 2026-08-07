@@ -59,7 +59,7 @@ async def read_setup_status():
         "backendRunning": True,
         "frontendRunning": True,
         "dockerEnabled": seed_data["docker"] == "Enabled",
-        "authenticationEnabled": seed_data["authentication"] == "Enabled",
+        "authenticationEnabled": seed_data["authentication"] != "Disabled",
         "setupComplete": setup_complete,
         "dbName": "{{DB_NAME}}",
         "commands": {
