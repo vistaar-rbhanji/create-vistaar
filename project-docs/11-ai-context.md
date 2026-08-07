@@ -46,8 +46,10 @@ Phases 1–13: prompts, template engine, generators, installers, modules (local)
 - Source of truth: `modules/base-auth` (do not recreate OTP/JWT/crypto logic)
 - Installer: `modules/auth/install.js` via `install(context)`
 - Supported: React + Express + PostgreSQL + UI adapters (bootstrap/shadcn/material-ui/native)
-- Unsupported: FastAPI, MongoDB, backend none
+- Unsupported: FastAPI, MongoDB, backend none (at create time)
 - Layout: main `backend/` (setup/welcome) + `auth-api/` (OTP API) + `frontend/src/auth/`
+- **Later add:** `create-vistaar add auth` uses `vistaar.json` + same `install(context)` — do not invent a second installer
+- Manifest: always update `vistaar.json` after create / add auth (`src/project-manifest/`)
 
 ## Coding conventions (must follow)
 

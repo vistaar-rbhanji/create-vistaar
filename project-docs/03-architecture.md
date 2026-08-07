@@ -94,6 +94,7 @@ sequenceDiagram
   participant PG as ProjectGenerator
   participant MG as ModuleGenerator
   participant PI as ProjectInstaller
+  participant Manifest as vistaar.json
 
   User->>Create: create-vistaar
   Create->>Prompts: interactive questions
@@ -104,8 +105,25 @@ sequenceDiagram
   MG-->>PG: appliedModules
   PG-->>Create: GenerationResult
   Create->>PI: install(generation)
-  Note over PI: npm → git? → eslint? → husky?<br/>→ db-setup? → module post-install?
-  PI-->>User: success banner (fail-soft per installer)
+  Create->>Manifest: write vistaar.json
+  PI-->>User: success banner
+```
+
+### Add auth to an existing project (Phase 14)
+
+```mermaid
+flowchart TD
+  A[create-vistaar add auth] --> B{vistaar.json / project?}
+  B -->|no| C[Error: not a Vistaar project]
+  B -->|yes| D[Detect stack]
+  D --> E{auth already?}
+  E -->|yes| F[✓ Authentication is already installed]
+  E -->|no| G[Validate Base Auth compatibility]
+  G --> H[Prompt only for missing Express / Postgres / ORM]
+  H --> I[BackendGenerator / DatabaseGenerator / OrmGenerator if needed]
+  I --> J[auth install context]
+  J --> K[Update vistaar.json]
+  K --> L[Success + next steps]
 ```
 
 Default generator order is documented in `ProjectGenerator` (`src/generators/project-generator.ts`):

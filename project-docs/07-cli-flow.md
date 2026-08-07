@@ -67,6 +67,30 @@ Authentication is a **conditional select** after ORM:
 
 When `authentication === "base-auth"`, `ModuleRegistry` selects `modules/auth`, whose `install.js` copies `modules/base-auth` and wires the app.
 
+After installers finish, create writes **`vistaar.json`** at the project root (`src/project-manifest/`).
+
+## Execution flow — add auth (Phase 14)
+
+```bash
+npx create-vistaar add auth
+# or
+vistaar add auth
+```
+
+File: `src/commands/add/index.ts`
+
+1. Detect Vistaar project (`vistaar.json` or legacy frontend/ + package.json)
+2. Load / infer manifest; print detection checklist
+3. If `modules.auth` present → success and exit
+4. Refuse unsupported existing stacks (FastAPI, Mongo, Mongoose)
+5. Prompt only for missing Express / PostgreSQL / Prisma|Drizzle
+6. Run `BackendGenerator` / `DatabaseGenerator` / `OrmGenerator` when needed
+7. Call auth `install(context)` (same API as create)
+8. Update `vistaar.json`
+9. Run `ProjectInstaller` for npm etc.
+
+Registered on both `create-vistaar` and `vistaar` binaries.
+
 ```mermaid
 flowchart TD
   A[execute] --> B[collectProjectConfig]

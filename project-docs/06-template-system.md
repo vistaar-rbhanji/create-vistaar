@@ -70,7 +70,7 @@ Pattern (conceptually): `{{ KEY }}` with optional whitespace — regex on upperc
 | `DOCKER` | Enabled / Disabled |
 | `DOCKER_BOOL` | `"true"` / `"false"` |
 | `LANGUAGE` | typescript \| javascript |
-| `DB_DRIVER` | Resolved driver string |
+| `DB_DRIVER` | `file` / `prisma` / `drizzle` / `mongoose` / `pg` / `mongodb` / FastAPI drivers |
 | `API_URL` | `http://localhost:3000` |
 | `FRONTEND_URL` | `http://localhost:5173` |
 | `BACKEND_PORT` | `3000` |

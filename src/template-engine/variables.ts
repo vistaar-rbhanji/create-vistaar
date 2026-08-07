@@ -115,7 +115,7 @@ function labelUi(config: ProjectConfig): string {
 
 /**
  * Concrete persistence driver embedded in backend templates.
- * Keeps FastAPI on Python clients while Express uses Node ORMs.
+ * Keeps FastAPI on Python clients while Express uses ORM or native drivers.
  */
 export function resolveDbDriver(config: ProjectConfig): string {
   if (config.database === "none" || config.backend === "none") {
@@ -126,14 +126,26 @@ export function resolveDbDriver(config: ProjectConfig): string {
     return config.database === "mongodb" ? "motor" : "sqlalchemy";
   }
 
-  // Express
-  if (config.database === "mongodb") {
-    return "mongoose";
+  // Express — prefer explicit ORM, else native drivers
+  if (config.orm === "prisma") {
+    return "prisma";
   }
   if (config.orm === "drizzle") {
     return "drizzle";
   }
-  return "prisma";
+  if (config.orm === "mongoose") {
+    return "mongoose";
+  }
+
+  // No ORM
+  if (config.database === "mongodb") {
+    return "mongodb";
+  }
+  if (config.database === "postgresql") {
+    return "pg";
+  }
+
+  return "file";
 }
 
 /** Build the standard variable map from a resolved ProjectConfig. */

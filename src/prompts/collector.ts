@@ -77,6 +77,11 @@ export async function collectProjectConfig(
     answers[question.field] = await askQuestion(question, answers);
   }
 
+  // "No ORM" prompt value → null on ProjectConfig
+  if (answers.orm === "none") {
+    answers.orm = null;
+  }
+
   // Narrow once at the boundary. Generators receive ProjectConfig only.
   return answers as unknown as ProjectConfig;
 }

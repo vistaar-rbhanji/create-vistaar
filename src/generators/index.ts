@@ -13,6 +13,7 @@ export { DockerGenerator } from "./docker-generator.js";
 export { FrontendGenerator } from "./frontend-generator.js";
 export { mergeDirectoryInto, mergeTemplateInto } from "./merge-template.js";
 export { ModuleGenerator } from "./module-generator.js";
+export { NativeDriverGenerator } from "./native-driver-generator.js";
 export { OrmGenerator } from "./orm-generator.js";
 export { mergePackageJson } from "./package-json.js";
 export type { PackageJsonLike } from "./package-json.js";

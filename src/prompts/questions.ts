@@ -64,8 +64,12 @@ const ORM_BY_DATABASE: Readonly<
   postgresql: [
     { name: "Prisma", value: "prisma" },
     { name: "Drizzle", value: "drizzle" },
+    { name: "No ORM", value: "none" },
   ],
-  mongodb: [{ name: "Mongoose", value: "mongoose" }],
+  mongodb: [
+    { name: "Mongoose", value: "mongoose" },
+    { name: "No ORM", value: "none" },
+  ],
 };
 
 /** Valid NPM-style project name (lowercase, optional scopes not required for v1). */
@@ -230,5 +234,7 @@ export const CREATE_QUESTIONS: readonly QuestionDefinition[] = [
 export function getCompatibleOrms(
   database: Exclude<DatabaseEngine, "none">,
 ): readonly OrmAdapter[] {
-  return ORM_BY_DATABASE[database].map((choice) => choice.value);
+  return ORM_BY_DATABASE[database]
+    .map((choice) => choice.value)
+    .filter((value): value is OrmAdapter => value !== "none");
 }

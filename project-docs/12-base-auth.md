@@ -31,6 +31,13 @@ FastAPI, MongoDB, backend/database `none` — prompt does not offer Base Auth.
 6. Copy base-auth backend → `auth-api/`
 7. Root scripts: `dev:auth-api`, `auth:init-db`, `auth:create-admin`
 
-## Updating the auth template
+## Adding auth later
 
-Edit `modules/base-auth` only. Re-scaffold (or future `vistaar add auth`) to refresh generated projects. Keep wiring changes in `modules/auth/install.js` / `templates/ui/*`.
+```bash
+cd my-existing-app
+npx create-vistaar add auth
+```
+
+Flow: read `vistaar.json` → detect missing Express/Postgres/ORM → prompt → generators for missing pieces → `modules/auth` `install(context)` → update manifest.
+
+Do not recreate `modules/base-auth`. Do not overwrite an existing frontend UI framework.

@@ -15,6 +15,7 @@ Interactive CLI that bootstraps full-stack projects from reusable templates.
 > **Phase 11:** Static end-user docs site (`docs/`).
 > **Phase 12:** Internal engineering handbook (`project-docs/`).
 > **Phase 13:** Base Auth — integrate `modules/base-auth` via `modules/auth` (`authentication: none | base-auth`).
+> **Phase 14:** `create-vistaar add auth` — add Base Auth (+ missing Express/Postgres/ORM) to an existing project using `vistaar.json`.
 
 ## Requirements
 
@@ -70,8 +71,8 @@ src/cli/       Commander registration only
 | UI framework | ShadCN, Bootstrap, Material UI |
 | Backend | Express, FastAPI, None |
 | Database | PostgreSQL, MongoDB, None |
-| ORM | Prisma / Drizzle (PostgreSQL), Mongoose (MongoDB); skipped if no DB |
-| Authentication | None, Base Auth (Express + PostgreSQL only) |
+| ORM | Prisma / Drizzle (PostgreSQL), Mongoose (MongoDB), or **No ORM** (native `pg` / `mongodb`); skipped if no DB |
+| Authentication | None, Base Auth (Express + PostgreSQL; ORM optional) |
 | Docker | Yes / No |
 | Git | Yes / No |
 | Husky | Yes / No |

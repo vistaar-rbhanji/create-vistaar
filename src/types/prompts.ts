@@ -91,5 +91,5 @@ export type LanguageChoice = PromptChoice<ProjectLanguage>;
 export type UiChoice = PromptChoice<UiFramework>;
 export type BackendChoice = PromptChoice<BackendFramework>;
 export type DatabaseChoice = PromptChoice<DatabaseEngine>;
-export type OrmChoice = PromptChoice<OrmAdapter>;
+export type OrmChoice = PromptChoice<OrmAdapter | "none">;
 export type AuthChoice = PromptChoice<AuthProvider>;

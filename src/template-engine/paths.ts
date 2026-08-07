@@ -54,9 +54,9 @@ export function resolveUiTemplateId(
 }
 
 /**
- * ORM template id, or null when persistence is file-based / unavailable.
- * Express + Postgres → prisma|drizzle; Express + Mongo → mongoose.
- * FastAPI uses in-template Python drivers (no orm/ copy).
+ * ORM template id, or null when no ORM was selected / not applicable.
+ * Express + orm prisma|drizzle|mongoose → templates/orm/*.
+ * Native drivers (orm null) are handled by NativeDriverGenerator.
  */
 export function resolveOrmTemplateId(
   config: Pick<ProjectConfig, "backend" | "database" | "orm">,
@@ -64,17 +64,19 @@ export function resolveOrmTemplateId(
   if (config.backend !== "express") {
     return null;
   }
-  if (config.database === "none") {
+  if (config.database === "none" || config.orm === null) {
     return null;
   }
-  if (config.database === "mongodb") {
+  if (config.orm === "mongoose" || config.database === "mongodb") {
     return "orm/mongoose";
   }
   if (config.orm === "drizzle") {
     return "orm/drizzle";
   }
-  // Default Postgres path (prisma), including when orm is null unexpectedly.
-  return "orm/prisma";
+  if (config.orm === "prisma") {
+    return "orm/prisma";
+  }
+  return null;
 }
 
 /**

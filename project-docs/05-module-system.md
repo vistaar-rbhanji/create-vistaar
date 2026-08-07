@@ -112,14 +112,16 @@ Implemented in `src/module-system/apply.ts`:
 | `shared` | skipped | Not a module |
 | `base-auth/` | not a module (no `module.json`) | Nested product tree consumed by `modules/auth` |
 
-### Base Auth (Phase 13)
+### Base Auth (Phase 13–14)
 
 - Prompt: `Authentication: None | Base Auth` (Base Auth only when Express + PostgreSQL)
 - `ProjectConfig.authentication`: `"none" | "base-auth"`
 - UI: one VistaarUI adapter (`native` baseline / `bootstrap` / `shadcn` / `material-ui`) — no mixed CSS frameworks
 - Backend: Express-only; FastAPI/Mongo never get Base Auth
 - DB: PostgreSQL via auth-api `pg` (independent of Prisma/Drizzle on the main backend)
-- See `modules/auth/README.md` and `modules/auth/COMPATIBILITY.md`
+- **Add later:** `create-vistaar add auth` / `vistaar add auth` reads `vistaar.json`, installs missing Express/Postgres/ORM (or No ORM), then calls the same `install(context)`
+- Base Auth does **not** require Prisma/Drizzle — `orm: null` + PostgreSQL is valid
+- See `modules/auth/README.md`, `modules/auth/COMPATIBILITY.md`, `project-docs/12-base-auth.md`
 
 ## Future extensibility (planned, not built)
 

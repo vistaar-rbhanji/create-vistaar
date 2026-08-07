@@ -28,6 +28,7 @@ import { BackendGenerator } from "./backend-generator.js";
 import { DatabaseGenerator } from "./database-generator.js";
 import { FrontendGenerator } from "./frontend-generator.js";
 import { ModuleGenerator } from "./module-generator.js";
+import { NativeDriverGenerator } from "./native-driver-generator.js";
 import { OrmGenerator } from "./orm-generator.js";
 import { ReadmeGenerator } from "./readme-generator.js";
 import { resolveProjectPaths } from "./project-paths.js";
@@ -43,7 +44,7 @@ export interface ProjectGeneratorOptions {
   readonly engine: TemplateEngine;
   /**
    * Ordered generators. Defaults to
-   * frontend → ui → backend → database → orm → project-root → readme → modules.
+   * frontend → ui → backend → database → orm|native-driver → project-root → readme → modules.
    * Docker is installed as a module (modules/docker), not a dedicated generator.
    */
   readonly generators?: readonly Generator[];
@@ -69,6 +70,7 @@ export class ProjectGenerator {
         new BackendGenerator(),
         new DatabaseGenerator(),
         new OrmGenerator(),
+        new NativeDriverGenerator(),
         new RootExtrasGenerator(),
         new ReadmeGenerator(),
       ];

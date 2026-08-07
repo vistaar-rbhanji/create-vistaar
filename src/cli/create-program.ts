@@ -1,14 +1,15 @@
 /**
- * create-vistaar program — project creation only.
+ * create-vistaar program — project creation + focused add auth (Phase 14).
  *
- * Does not register management commands (add/generate/update). Those belong
- * to the vistaar binary so scaffolding stays decoupled from management.
+ * `add auth` is registered here so `npx create-vistaar add auth` works.
+ * Broader management remains on the `vistaar` binary as well.
  */
 
 import { Command } from "commander";
 
-import { createCommand } from "../commands/index.js";
+import { addCommand, createCommand, doctorCommand } from "../commands/index.js";
 import { createContext } from "../commands/types.js";
+import { registerCommand } from "./register.js";
 
 export function buildCreateProgram(): Command {
   const program = new Command();
@@ -23,13 +24,36 @@ export function buildCreateProgram(): Command {
       await createCommand.execute(createContext());
     });
 
-  // Optional explicit subcommand for symmetry with future `vistaar create`.
   program
     .command("create")
     .description(createCommand.description)
     .action(async () => {
       await createCommand.execute(createContext());
     });
+
+  registerCommand(program, addCommand);
+  registerCommand(program, doctorCommand);
+
+  program.addHelpText(
+    "after",
+    `
+Commands:
+
+  create-vistaar
+      Create a new project
+
+  create-vistaar add auth
+      Add authentication to an existing Vistaar project
+
+  create-vistaar doctor
+      Check project health
+
+Examples:
+  npx create-vistaar
+  npx create-vistaar add auth
+  npx create-vistaar doctor
+`,
+  );
 
   return program;
 }

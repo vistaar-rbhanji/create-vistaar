@@ -1,6 +1,7 @@
 /**
- * Attempts `db:setup` (migrate/push + seed) after npm install when an ORM
- * backend was generated. Failures are non-fatal — DB may not be running yet.
+ * Attempts db setup after npm install when an Express + database backend
+ * was generated with an ORM. Native-driver (no ORM) projects seed on first
+ * server start instead — no migrate step.
  */
 
 import path from "node:path";

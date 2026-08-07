@@ -69,24 +69,43 @@
         <code>vistaar</code> manages them.
       </p>
 
-      <h2 id="create-vistaar">create-vistaar</h2>
-      <p>Interactive project scaffolding. Collects stack choices and generates the workspace.</p>
-      <pre><code>npx create-vistaar
+  <h2 id="create-vistaar">create-vistaar</h2>
+  <p>Interactive project scaffolding. Collects stack choices and generates the workspace. Also writes <code>vistaar.json</code>.</p>
+  <pre><code>npx create-vistaar
 # or after a global install
 create-vistaar</code></pre>
-      <p>Typical prompts include project name, language, UI framework, backend, database, ORM, auth, Docker, Git, Husky, and ESLint/Prettier.</p>
+  <p>Typical prompts include project name, language, UI framework, backend, database, ORM, auth, Docker, Git, Husky, and ESLint/Prettier.</p>
 
-      <h2 id="doctor">vistaar doctor</h2>
-      <p>Runs project health checks when a generated <code>scripts/doctor.js</code> is present.</p>
+  <h2 id="add-auth">create-vistaar add auth</h2>
+  <p>
+    Add Base Auth to an <strong>existing</strong> Vistaar project. Detects what is already
+    installed via <code>vistaar.json</code>, asks only for missing Express / PostgreSQL / ORM
+    pieces, then reuses <code>install(context)</code> for Base Auth.
+  </p>
+  <pre><code>cd my-app
+npx create-vistaar add auth
+# equivalent:
+vistaar add auth</code></pre>
+  <div class="callout">
+    <p>Supported stack for Base Auth: Express + PostgreSQL + Prisma or Drizzle. Frontend is preserved.</p>
+  </div>
+
+  <h2 id="doctor">vistaar doctor / create-vistaar doctor</h2>
+  <p>Runs project health checks when a generated <code>scripts/doctor.js</code> is present.</p>
       <pre><code>cd my-app
 vistaar doctor</code></pre>
       <div class="callout">
         <p>Run doctor from the project root so it can locate setup markers and scripts.</p>
       </div>
 
-      <h2 id="add">vistaar add <span class="badge badge-soon">🚧 Coming Soon</span></h2>
-      <p>Install modules into an existing Vistaar project (auth, RBAC, storage, and more).</p>
-      <pre><code>vistaar add auth</code></pre>
+      <h2 id="add">vistaar add / create-vistaar add</h2>
+      <p>
+        <code>add auth</code> is supported (see above). Other modules remain
+        <span class="badge badge-soon">🚧 Coming Soon</span>.
+      </p>
+      <pre><code>create-vistaar add auth
+vistaar add auth
+vistaar add rbac   # coming soon</code></pre>
 
       <h2 id="generate">vistaar generate <span class="badge badge-soon">🚧 Coming Soon</span></h2>
       <p>Generate CRUD resources and related boilerplate inside a project.</p>

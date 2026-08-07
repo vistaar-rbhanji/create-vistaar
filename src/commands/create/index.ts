@@ -8,6 +8,10 @@ import { fileURLToPath } from "node:url";
 import { ModuleGenerator, ProjectGenerator } from "../../generators/index.js";
 import { ProjectInstaller } from "../../installers/index.js";
 import { ModuleRegistry } from "../../module-system/index.js";
+import {
+  manifestFromProjectConfig,
+  writeVistaarManifest,
+} from "../../project-manifest/index.js";
 import { collectProjectConfig } from "../../prompts/index.js";
 import { TemplateEngine } from "../../template-engine/index.js";
 import { logger, printProjectConfig } from "../../utils/index.js";
@@ -49,6 +53,19 @@ export async function execute(
 
   const installer = new ProjectInstaller();
   await installer.install(generation);
+
+  const modules: Record<string, { name: string; version: string }> = {};
+  for (const mod of generation.appliedModules) {
+    modules[mod.manifest.name] = {
+      name: mod.manifest.name === "auth" ? "base-auth" : mod.manifest.name,
+      version: mod.manifest.version,
+    };
+  }
+  await writeVistaarManifest(
+    generation.paths.root,
+    manifestFromProjectConfig(config, modules),
+  );
+  logger.success("  Wrote vistaar.json");
 }
 
 export const createCommand: CliCommand = {

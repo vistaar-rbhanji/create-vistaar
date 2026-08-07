@@ -33,6 +33,10 @@ Examples:
 
 Scaffold a new project with:
   npx create-vistaar
+
+Add auth to an existing project:
+  npx create-vistaar add auth
+  # or: vistaar add auth
 `,
   );
 
