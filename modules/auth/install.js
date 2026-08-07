@@ -563,10 +563,24 @@ async function patchRootScripts(context) {
   const pkgPath = path.join(context.projectPath, "package.json");
   if (!(await fs.pathExists(pkgPath))) return;
   const pkg = await fs.readJson(pkgPath);
+
+  // Portable init script (Windows-safe — does not use psql "$DATABASE_URL")
+  const scriptsDir = path.join(context.projectPath, "scripts");
+  await fs.ensureDir(scriptsDir);
+  const initSrc = path.join(
+    context.moduleRoot,
+    "templates",
+    "root-scripts",
+    "auth-init-db.js",
+  );
+  if (await fs.pathExists(initSrc)) {
+    await fs.copy(initSrc, path.join(scriptsDir, "auth-init-db.js"));
+  }
+
   pkg.scripts = {
     ...(pkg.scripts || {}),
     "dev:auth-api": "npm run dev --prefix auth-api",
-    "auth:init-db": "psql \"$DATABASE_URL\" -f auth-api/scripts/init-db.sql",
+    "auth:init-db": "node scripts/auth-init-db.js",
     "auth:create-admin": "npm run create:admin --prefix auth-api",
   };
   await fs.writeJson(pkgPath, pkg, { spaces: 2 });
