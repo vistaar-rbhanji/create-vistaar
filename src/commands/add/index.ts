@@ -162,9 +162,10 @@ async function executeAddAuth(context: CommandContext): Promise<void> {
   logger.info("  Updated vistaar.json");
   logger.info("  Next steps:");
   logger.info("    1. Configure auth-api/.env.example → .env (Postgres, Redis, mail)");
-  logger.info("    2. npm run auth:init-db");
-  logger.info("    3. npm run auth:create-admin");
-  logger.info("    4. npm run dev:backend && npm run dev:auth-api && npm run dev:frontend");
+  logger.info("    2. npm install --prefix auth-api   (if install was skipped)");
+  logger.info("    3. npm run auth:init-db");
+  logger.info("    4. npm run auth:create-admin");
+  logger.info("    5. npm run dev:backend && npm run dev:auth-api && npm run dev:frontend");
   logger.blank();
 }
 

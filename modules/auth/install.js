@@ -532,6 +532,19 @@ MAIL_DEV_LOG_OTP=true
     text = text.replace(/Vistaar Auth/g, "{{PROJECT_NAME}}");
     await writeText(branding, text, context.variables);
   }
+
+  // Drop husky prepare — scaffolded apps don't ship .husky; it breaks npm install.
+  const authPkgPath = path.join(dest, "package.json");
+  if (await fs.pathExists(authPkgPath)) {
+    const authPkg = await fs.readJson(authPkgPath);
+    if (authPkg.scripts?.prepare === "husky") {
+      delete authPkg.scripts.prepare;
+    }
+    if (authPkg.devDependencies?.husky) {
+      delete authPkg.devDependencies.husky;
+    }
+    await fs.writeJson(authPkgPath, authPkg, { spaces: 2 });
+  }
 }
 
 /**

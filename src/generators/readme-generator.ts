@@ -84,6 +84,9 @@ function buildReadme(
   } else if (config.backend === "fastapi") {
     lines.push("cd backend && python -m venv .venv && pip install -r requirements.txt");
   }
+  if (config.authentication === "base-auth") {
+    lines.push("npm install --prefix auth-api");
+  }
   lines.push("```");
   lines.push("");
   lines.push("Then open the Setup Wizard at the frontend URL and follow the steps.");

@@ -11,9 +11,12 @@ import type { ProjectPaths } from "../generators/index.js";
 export async function findNpmProjectDirs(
   paths: ProjectPaths,
 ): Promise<string[]> {
-  const candidates = [paths.frontend, paths.backend].filter(
-    (dir): dir is string => dir !== null,
-  );
+  const candidates = [
+    paths.frontend,
+    paths.backend,
+    // Base Auth ships as a sibling Express app; include when present.
+    path.join(paths.root, "auth-api"),
+  ].filter((dir): dir is string => dir !== null);
 
   const dirs: string[] = [];
   for (const dir of candidates) {
