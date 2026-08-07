@@ -29,9 +29,16 @@ FastAPI, MongoDB, backend/database `none` — prompt does not offer Base Auth.
 4. Copy one UI adapter matching `uiFramework`
 5. Patch `App` (setup wizard → AuthShell), Vite proxy, tsconfig paths
 6. Copy base-auth backend → `auth-api/`
-7. Root scripts: `dev:auth-api`, `auth:init-db`, `auth:create-admin`
+7. Root scripts: `dev:auth-api`, `auth:init-db`, `auth:create-admin`, `auth:seed-admin` (advanced; prefer `migrate` / `seed`)
+8. Pending Super Admin → `auth-api/.vistaar/initial-admin.json` when collected at create/add time
 
-## Adding auth later
+## Default roles
+
+`super-admin`, `admin`, `user` — resolve by **slug**, not hardcoded domain role IDs.
+
+## Zero-friction setup
+
+Dependencies install for `auth-api` during generation. `.env` is created from `.env.example`. Schema + Super Admin seed run through `npm run migrate` / `npm run seed` when the database is reachable. The Setup Wizard explains connection failures in beginner-friendly language.
 
 ```bash
 cd my-existing-app

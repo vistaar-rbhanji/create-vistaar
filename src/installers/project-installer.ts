@@ -12,6 +12,7 @@
 import type { GenerationResult } from "../generators/index.js";
 import { logger } from "../utils/index.js";
 import { DatabaseSetupInstaller } from "./database-setup-installer.js";
+import { EnvInstaller } from "./env-installer.js";
 import { EslintPrettierInstaller } from "./eslint-prettier-installer.js";
 import { GitInstaller } from "./git-installer.js";
 import { HuskyInstaller } from "./husky-installer.js";
@@ -40,6 +41,8 @@ export class ProjectInstaller {
     this.installers =
       options.installers ??
       [
+        // Env before npm so local scripts can read DATABASE_URL if present.
+        new EnvInstaller(),
         new NpmInstaller(),
         new GitInstaller(),
         new EslintPrettierInstaller(),

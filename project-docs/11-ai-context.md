@@ -38,19 +38,25 @@ Entry (index.ts / vistaar.ts)
 
 ## Completed work (do not re-litigate)
 
-Phases 1–13: prompts, template engine, generators, installers, modules (local), welcome/setup UX, dual CLI, static `docs/`, engineering handbook, **Base Auth** integration from `modules/base-auth`.
+Phases 1–15: prompts, template engine, generators, installers, modules (local), welcome/setup UX, dual CLI, static `docs/`, engineering handbook, **Base Auth** integration, **`add auth`**, optional **No ORM**, and **zero-friction setup** (auto `.env`, initial Super Admin prompt, simplified roles, Setup Wizard guidance).
 
 ## Base Auth (current)
 
 - Config: `authentication: "none" | "base-auth"` (not a boolean)
+- Optional `initialAdmin: { firstName, lastName, email } | null` (password never stored)
 - Source of truth: `modules/base-auth` (do not recreate OTP/JWT/crypto logic)
 - Installer: `modules/auth/install.js` via `install(context)`
 - Supported: React + Express + PostgreSQL + UI adapters (bootstrap/shadcn/material-ui/native)
 - Unsupported: FastAPI, MongoDB, backend none (at create time)
 - Layout: main `backend/` (setup/welcome) + `auth-api/` (OTP API) + `frontend/src/auth/`
+- Default roles: `super-admin`, `admin`, `user` (resolve by slug)
+- Normal setup: `.env` auto-created → create DB → update URL → `migrate`/`seed` or Setup Wizard — not raw `auth:init-db`/`auth:create-admin`
 - **Later add:** `create-vistaar add auth` uses `vistaar.json` + same `install(context)` — do not invent a second installer
 - Manifest: always update `vistaar.json` after create / add auth (`src/project-manifest/`)
 
+## Setup philosophy
+
+> Vistaar should automate everything that is environment-independent and clearly guide the developer through anything that requires environment-specific configuration.
 ## Coding conventions (must follow)
 
 - TypeScript strict + NodeNext; import with `.js` extensions.
@@ -116,4 +122,4 @@ Details: [10-future-ideas.md](./10-future-ideas.md), [02-roadmap.md](./02-roadma
 
 ## Quick `ProjectConfig` fields
 
-`projectName`, `frontend: "react"`, `language`, `uiFramework`, `backend`, `database`, `orm`, `authentication` (`"none" | "base-auth"`), `docker`, `git`, `husky`, `eslintPrettier` — see `src/types/config.ts`.
+`projectName`, `frontend: "react"`, `language`, `uiFramework`, `backend`, `database`, `orm`, `authentication` (`"none" | "base-auth"`), `initialAdmin`, `docker`, `git`, `husky`, `eslintPrettier` — see `src/types/config.ts`.

@@ -75,6 +75,10 @@ function buildReadme(
   lines.push("npm run setup");
   lines.push("```");
   lines.push("");
+  lines.push(
+    "`.env` files are created automatically from `.env.example` during generation (existing `.env` files are never overwritten).",
+  );
+  lines.push("");
   lines.push("Or install packages manually:");
   lines.push("");
   lines.push("```bash");
@@ -97,17 +101,11 @@ function buildReadme(
   if (config.database === "postgresql") {
     lines.push(`Database name: \`${vars.DB_NAME}\``);
     lines.push("");
-    lines.push("```bash");
-    lines.push(`createdb ${vars.DB_NAME}`);
-    lines.push("```");
+    lines.push(
+      "Create the database with any method you prefer (local PostgreSQL, Docker, or a cloud provider). Vistaar does not create the database automatically.",
+    );
     lines.push("");
-    lines.push("Or SQL:");
-    lines.push("");
-    lines.push("```sql");
-    lines.push(`CREATE DATABASE ${vars.DB_NAME};`);
-    lines.push("```");
-    lines.push("");
-    lines.push("Copy `backend/.env.example` to `backend/.env` and set `DATABASE_URL`.");
+    lines.push("Then set `DATABASE_URL` in `backend/.env` (and `auth-api/.env` when Base Auth is installed).");
     lines.push("");
     lines.push("```bash");
     lines.push("npm run migrate");
@@ -118,7 +116,7 @@ function buildReadme(
       "MongoDB creates the database automatically when the first document is inserted. No manual `CREATE DATABASE` step is required.",
     );
     lines.push("");
-    lines.push("Copy `backend/.env.example` to `backend/.env` and set `MONGODB_URI`.");
+    lines.push("Confirm `MONGODB_URI` in `backend/.env`.");
     lines.push("");
     lines.push("```bash");
     lines.push("npm run seed");

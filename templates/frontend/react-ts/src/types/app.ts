@@ -29,21 +29,37 @@ export interface SetupStatusCommands {
   setup: string;
   docker: string;
   doctor: string;
+  login?: string;
+}
+
+export interface DatabaseHint {
+  title: string;
+  steps: string[];
+  technical: string | null;
 }
 
 export interface SetupStatus {
   projectGenerated: boolean;
   projectName: string;
+  frontend?: string;
+  backend?: string;
   databaseEngine: string;
   databaseRequired: boolean;
   databaseConfigured: boolean;
   databaseConnected: boolean;
+  databaseHint?: DatabaseHint | null;
+  requiredEnvVar?: string | null;
   migrationCompleted: boolean;
   seedCompleted: boolean;
   backendRunning: boolean;
   frontendRunning: boolean;
   dockerEnabled: boolean;
   authenticationEnabled: boolean;
+  authentication?: string;
+  authenticationInstalled?: boolean;
+  authMigrationCompleted?: boolean;
+  initialAdminPending?: boolean;
+  initialAdminCreated?: boolean;
   setupComplete: boolean;
   dbName: string;
   commands: SetupStatusCommands;

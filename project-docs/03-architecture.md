@@ -42,10 +42,12 @@ flowchart LR
 | Generators | `src/generators/` | Create files via templates |
 | Template engine | `src/template-engine/` | Copy + `{{VAR}}` substitution |
 | Module system | `src/module-system/` | Discover/resolve/install modules |
-| Installers | `src/installers/` | Side-effectful post steps (npm, git, …) |
+| Installers | `src/installers/` | Side-effectful post steps (env files, npm, git, db setup, …) |
 | Utils | `src/utils/` | Logger, config printing |
 
 **Design rule:** scaffolding and package-manager side effects stay separated (`ProjectGenerator` vs `ProjectInstaller`).
+
+**Setup philosophy (Phase 15):** automate everything that is environment-independent (copy `.env`, install deps, generate local secrets, wire scripts). Clearly guide the developer through anything environment-specific (create the database, set `DATABASE_URL` / `MONGODB_URI`). Prefer the Setup Wizard over memorizing commands.
 
 ## CLI flow
 
@@ -127,6 +129,24 @@ flowchart TD
 ```
 
 Default generator order is documented in `ProjectGenerator` (`src/generators/project-generator.ts`):
+
+## Zero-friction setup (Phase 15)
+
+Installer order (default `ProjectInstaller`):
+
+1. **EnvInstaller** — `.env.example` → `.env` (never overwrite); fill safe local secrets
+2. **NpmInstaller** — including `auth-api/` when present
+3. Git / ESLint / Husky
+4. **DatabaseSetupInstaller** — main-backend migrate/seed when ORM; auth schema + Super Admin seed when Base Auth
+5. Module post-install
+
+Generated projects include a root `.gitignore` that ignores `.env`.
+
+When Base Auth is selected, create (and `add auth`) prompts for the initial Super Admin (name + email; password is validated then discarded because login is email OTP). Pending admin is stored in `auth-api/.vistaar/initial-admin.json` and seeded via `npm run seed` after the database is reachable.
+
+Default auth roles: `super-admin`, `admin`, `user` (stable slugs).
+
+Normal flow does **not** require remembering `auth:init-db` / `auth:create-admin` — those remain as advanced escape hatches. Prefer `npm run migrate` + `npm run seed` and the Setup Wizard.
 
 1. `FrontendGenerator`
 2. `UIGenerator`

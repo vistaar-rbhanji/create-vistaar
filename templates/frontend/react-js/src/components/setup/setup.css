@@ -46,6 +46,93 @@
   font-size: 0.9rem;
 }
 
+.setup-wizard__hero--ready {
+  background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+}
+
+.setup-wizard__cta {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  background: var(--color-primary);
+  color: #f0fdfa;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+
+.setup-wizard__cta:hover {
+  filter: brightness(1.05);
+}
+
+.setup-ready-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.setup-status-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+}
+
+.setup-status-pill--ok {
+  background: rgba(15, 118, 110, 0.12);
+  color: #0f766e;
+}
+
+.setup-status-pill--warn {
+  background: rgba(180, 83, 9, 0.12);
+  color: #b45309;
+}
+
+.database-help__next {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  background: var(--color-surface-alt);
+}
+
+.database-help__next-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.database-help__steps {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.database-help__tech {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.database-help__tech pre {
+  margin-top: 0.4rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+}
+
 .setup-wizard__refresh {
   align-self: center;
   background: var(--color-surface);

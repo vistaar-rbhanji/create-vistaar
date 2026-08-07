@@ -65,9 +65,11 @@ Authentication is a **conditional select** after ORM:
 - Compatible (Express + PostgreSQL): `None` | `Base Auth`
 - Otherwise: only `None` (message explains Base Auth needs Express + PostgreSQL)
 
-When `authentication === "base-auth"`, `ModuleRegistry` selects `modules/auth`, whose `install.js` copies `modules/base-auth` and wires the app.
+When `authentication === "base-auth"`, prompts also collect the **initial Super Admin** (first/last/email; password validated then discarded — OTP login). `ModuleRegistry` selects `modules/auth`, whose `install.js` copies `modules/base-auth`, writes `auth-api/.vistaar/initial-admin.json`, and wires the app.
 
 After installers finish, create writes **`vistaar.json`** at the project root (`src/project-manifest/`).
+
+**Post-create guidance:** the success banner explains database setup conceptually (create DB → update `.env` → start app → Setup Wizard). It does not require memorizing `auth:init-db` / `auth:create-admin`.
 
 ## Execution flow — add auth (Phase 14)
 
@@ -83,11 +85,12 @@ File: `src/commands/add/index.ts`
 2. Load / infer manifest; print detection checklist
 3. If `modules.auth` present → success and exit
 4. Refuse unsupported existing stacks (FastAPI, Mongo, Mongoose)
-5. Prompt only for missing Express / PostgreSQL / Prisma|Drizzle
-6. Run `BackendGenerator` / `DatabaseGenerator` / `OrmGenerator` when needed
-7. Call auth `install(context)` (same API as create)
-8. Update `vistaar.json`
-9. Run `ProjectInstaller` for npm etc.
+5. Prompt only for missing Express / PostgreSQL / Prisma|Drizzle|No ORM
+6. Collect initial Super Admin (same as create)
+7. Run `BackendGenerator` / `DatabaseGenerator` / Orm|NativeDriver when needed
+8. Call auth `install(context)` (same API as create)
+9. Update `vistaar.json`
+10. Run `ProjectInstaller` (env copy, npm including auth-api, db setup when possible)
 
 Registered on both `create-vistaar` and `vistaar` binaries.
 
@@ -115,7 +118,7 @@ File: `src/commands/doctor/index.ts`
 
 ## Execution flow — add / generate / update
 
-Always `printComingSoon` today (`src/commands/shared/coming-soon.ts`). No filesystem mutation.
+`add auth` is implemented (Phase 14+). Other `add` / `generate` / `update` modules still use `printComingSoon` (`src/commands/shared/coming-soon.ts`).
 
 ## Error handling
 

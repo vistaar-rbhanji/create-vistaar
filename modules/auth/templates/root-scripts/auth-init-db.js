@@ -110,6 +110,27 @@ async function main() {
   try {
     await client.query(sql);
     console.log("✓ Auth database initialized.");
+
+    const vistaarDir = path.join(authApiRoot, ".vistaar");
+    fs.mkdirSync(vistaarDir, { recursive: true });
+    const statePath = path.join(vistaarDir, "setup-state.json");
+    let state = {
+      database: "connected",
+      migration: "complete",
+      authentication: "installed",
+      initialAdmin: "pending",
+    };
+    if (fs.existsSync(statePath)) {
+      try {
+        state = { ...JSON.parse(fs.readFileSync(statePath, "utf8")), ...state };
+      } catch {
+        /* keep defaults */
+      }
+    }
+    if (fs.existsSync(path.join(vistaarDir, "initial-admin-seeded"))) {
+      state.initialAdmin = "complete";
+    }
+    fs.writeFileSync(statePath, JSON.stringify(state, null, 2), "utf8");
   } finally {
     await client.end();
   }

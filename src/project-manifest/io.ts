@@ -114,6 +114,8 @@ export function projectConfigFromManifest(
           ? manifest.orm.name
           : null,
     authentication,
+    initialAdmin:
+      overrides.initialAdmin !== undefined ? overrides.initialAdmin : null,
     docker: overrides.docker ?? false,
     git: overrides.git ?? false,
     husky: overrides.husky ?? false,

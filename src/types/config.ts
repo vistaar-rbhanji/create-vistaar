@@ -43,6 +43,16 @@ export type OrmAdapter = "prisma" | "drizzle" | "mongoose";
 export type AuthProvider = "none" | "base-auth";
 
 /**
+ * Initial Super Admin collected at create time when Base Auth is enabled.
+ * Password is validated during prompts but never stored on disk (OTP login).
+ */
+export interface InitialAdminConfig {
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly email: string;
+}
+
+/**
  * The complete project configuration collected from interactive prompts.
  *
  * This object is the single source of truth passed to generators, template
@@ -69,6 +79,13 @@ export interface ProjectConfig {
   readonly orm: OrmAdapter | null;
 
   readonly authentication: AuthProvider;
+
+  /**
+   * Pending Super Admin for seed after the database is available.
+   * `null` when authentication is none or the user skipped collection.
+   */
+  readonly initialAdmin: InitialAdminConfig | null;
+
   readonly docker: boolean;
   readonly git: boolean;
   readonly husky: boolean;

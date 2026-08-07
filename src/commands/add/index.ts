@@ -17,6 +17,7 @@ import {
 } from "../../project-manifest/index.js";
 import { FUTURE_ADD_MODULES, printComingSoon } from "../shared/index.js";
 import type { CliCommand, CommandContext } from "../types.js";
+import { withInitialAdmin } from "../../prompts/index.js";
 import { logger } from "../../utils/index.js";
 import { installMissingStackAndAuth } from "./install-missing.js";
 import {
@@ -123,12 +124,14 @@ async function executeAddAuth(context: CommandContext): Promise<void> {
     return;
   }
 
-  const config = projectConfigFromManifest(manifest, {
-    backend,
-    database,
-    orm,
-    authentication: "base-auth",
-  });
+  const config = await withInitialAdmin(
+    projectConfigFromManifest(manifest, {
+      backend,
+      database,
+      orm,
+      authentication: "base-auth",
+    }),
+  );
 
   logger.blank();
   logger.info("Installing missing pieces + Base Auth…\n");
@@ -161,11 +164,10 @@ async function executeAddAuth(context: CommandContext): Promise<void> {
   logger.success("✓ Authentication added successfully.");
   logger.info("  Updated vistaar.json");
   logger.info("  Next steps:");
-  logger.info("    1. Configure auth-api/.env.example → .env (Postgres, Redis, mail)");
-  logger.info("    2. npm install --prefix auth-api   (if install was skipped)");
-  logger.info("    3. npm run auth:init-db");
-  logger.info("    4. npm run auth:create-admin");
-  logger.info("    5. npm run dev:backend && npm run dev:auth-api && npm run dev:frontend");
+  logger.info("    1. Ensure auth-api/.env has DATABASE_URL (created from .env.example)");
+  logger.info("    2. Create your PostgreSQL database, then: npm run migrate && npm run seed");
+  logger.info("    3. npm run dev:backend && npm run dev:auth-api && npm run dev:frontend");
+  logger.info("    4. Open the Setup Wizard — it shows remaining steps");
   logger.blank();
 }
 

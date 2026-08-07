@@ -50,6 +50,7 @@ export async function install(context) {
   await patchViteConfig(context);
   await patchTsconfigPaths(context);
   await copyAuthApi(context, baseAuthRoot);
+  await writeInitialAdminSeed(context);
   await mergeFrontendAuthDeps(context);
   await patchRootScripts(context);
   await appendAuthApiEnvExample(context);
@@ -63,7 +64,7 @@ export async function install(context) {
   logger.info("  • frontend/src/auth — UI-agnostic auth library + adapter");
   logger.info("  • Main backend kept for setup/welcome (app-info / health)");
   logger.warn(
-    "  Base Auth needs PostgreSQL, Redis, and mail (see auth-api/.env.example).",
+    "  Create the PostgreSQL database, confirm DATABASE_URL in .env files, then open the Setup Wizard.",
   );
 }
 
@@ -548,6 +549,40 @@ MAIL_DEV_LOG_OTP=true
 }
 
 /**
+ * Persist pending Super Admin (no password) for deferred seed after DB is ready.
+ * @param {ModuleContext} context
+ */
+async function writeInitialAdminSeed(context) {
+  const admin = context.config.initialAdmin;
+  if (!admin) {
+    return;
+  }
+  const vistaarDir = path.join(context.projectPath, "auth-api", ".vistaar");
+  await fs.ensureDir(vistaarDir);
+  await fs.writeJson(
+    path.join(vistaarDir, "initial-admin.json"),
+    {
+      firstName: admin.firstName,
+      lastName: admin.lastName,
+      email: admin.email,
+      roleSlug: "super-admin",
+      createdAt: new Date().toISOString(),
+    },
+    { spaces: 2 },
+  );
+  await fs.writeJson(
+    path.join(vistaarDir, "setup-state.json"),
+    {
+      database: "pending",
+      migration: "pending",
+      authentication: "installed",
+      initialAdmin: "pending",
+    },
+    { spaces: 2 },
+  );
+}
+
+/**
  * @param {ModuleContext} context
  */
 async function mergeFrontendAuthDeps(context) {
@@ -590,11 +625,19 @@ async function patchRootScripts(context) {
     await fs.copy(initSrc, path.join(scriptsDir, "auth-init-db.js"));
   }
 
+  for (const name of ["migrate.js", "seed.js"]) {
+    const src = path.join(context.moduleRoot, "templates", "root-scripts", name);
+    if (await fs.pathExists(src)) {
+      await fs.copy(src, path.join(scriptsDir, name));
+    }
+  }
+
   pkg.scripts = {
     ...(pkg.scripts || {}),
     "dev:auth-api": "npm run dev --prefix auth-api",
     "auth:init-db": "node scripts/auth-init-db.js",
-    "auth:create-admin": "npm run create:admin --prefix auth-api",
+    "auth:create-admin": "npm run create:super-admin --prefix auth-api",
+    "auth:seed-admin": "npm run seed:initial-admin --prefix auth-api",
   };
   await fs.writeJson(pkgPath, pkg, { spaces: 2 });
 }

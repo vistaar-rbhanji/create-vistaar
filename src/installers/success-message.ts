@@ -1,5 +1,5 @@
 /**
- * Final success banner: paths, modules, suggested next commands.
+ * Final success banner: paths, modules, database guidance, next commands.
  */
 
 import path from "node:path";
@@ -65,30 +65,73 @@ export function printSuccessMessage(
     console.log(`  ${icon} ${outcome.label}${detail}`);
   }
 
+  if (config.database !== "none") {
+    logger.blank();
+    logger.title("  Database Setup");
+    console.log(
+      chalk.white(
+        `  Your ${config.database === "postgresql" ? "PostgreSQL" : "MongoDB"} database is required before continuing.`,
+      ),
+    );
+    console.log(chalk.white(`  Database name: ${config.projectName}`));
+    logger.blank();
+    console.log(chalk.white("  Create the database using your preferred method."));
+    console.log(chalk.white("  Then update .env:"));
+    if (config.database === "postgresql") {
+      console.log(
+        chalk.cyan(
+          `    DATABASE_URL=postgresql://USER:PASSWORD@localhost:5432/${config.projectName}`,
+        ),
+      );
+      if (config.authentication === "base-auth") {
+        console.log(chalk.dim("    (also set the same URL in auth-api/.env)"));
+      }
+    } else {
+      console.log(
+        chalk.cyan(
+          `    MONGODB_URI=mongodb://localhost:27017/${config.projectName}`,
+        ),
+      );
+    }
+    logger.blank();
+    console.log(
+      chalk.green("  ✓ After updating .env, start the app — the Setup Wizard guides the rest."),
+    );
+  }
+
+  if (config.initialAdmin) {
+    logger.blank();
+    logger.title("  Initial administrator");
+    console.log(
+      chalk.white(
+        `  ${config.initialAdmin.firstName} ${config.initialAdmin.lastName} <${config.initialAdmin.email}>`,
+      ),
+    );
+    console.log(
+      chalk.dim(
+        "  Will be created as Super Admin when the database is available (npm run seed).",
+      ),
+    );
+  }
+
   logger.blank();
   logger.title("  Next steps");
   console.log(chalk.white(`  cd ${relativeRoot}`));
-  console.log(chalk.white(`  cd frontend && npm run dev`));
-
-  if (paths.backend) {
-    for (const line of backendNextCommands(config)) {
-      console.log(chalk.white(`  ${line}`));
-    }
+  console.log(chalk.white("  npm run dev:backend"));
+  console.log(chalk.white("  npm run dev:frontend"));
+  if (config.authentication === "base-auth") {
+    console.log(chalk.white("  npm run dev:auth-api"));
   }
-
-  if (config.eslintPrettier) {
-    console.log(chalk.white("  cd frontend && npm run lint"));
-    console.log(chalk.white("  cd frontend && npm run format"));
-  }
-
-  if (config.database !== "none" && config.backend === "express") {
-    console.log(chalk.white("  npm run migrate"));
-    console.log(chalk.white("  npm run seed"));
-  }
-
-  console.log(chalk.white("  npm run setup"));
-  console.log(chalk.white("  npm run doctor"));
-  console.log(chalk.dim("\n  Tip: open the frontend — the Setup Wizard guides first-time configuration."));
+  console.log(
+    chalk.dim(
+      "\n  Tip: open the frontend — the Setup Wizard shows what is done and what to do next.",
+    ),
+  );
+  console.log(
+    chalk.dim(
+      "  Advanced: npm run migrate / npm run seed remain available if you prefer the CLI.",
+    ),
+  );
 
   const failed = outcomes.filter((o) => o.status === "failed");
   if (failed.length > 0) {
@@ -120,3 +163,6 @@ function backendNextCommands(config: ProjectConfig): string[] {
     }
   }
 }
+
+// keep helper referenced for potential reuse / exhaustiveness
+void backendNextCommands;

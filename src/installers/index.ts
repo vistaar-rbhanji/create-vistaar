@@ -7,6 +7,7 @@
  */
 
 export { DatabaseSetupInstaller } from "./database-setup-installer.js";
+export { EnvInstaller } from "./env-installer.js";
 export { EslintPrettierInstaller } from "./eslint-prettier-installer.js";
 export { GitInstaller } from "./git-installer.js";
 export { HuskyInstaller } from "./husky-installer.js";

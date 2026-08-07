@@ -15,14 +15,14 @@ export function WelcomeDashboard() {
   return (
     <div className="welcome">
       <header className="welcome__hero">
-        <p className="welcome__eyebrow">Congratulations!</p>
+        <p className="welcome__eyebrow">Your application is ready!</p>
         <h1 className="welcome__title">
-          Your project "<span>{projectName}</span>" has been successfully created.
+          Welcome to <span>{projectName}</span>
         </h1>
         <p className="welcome__subtitle">
-          This dashboard proves your frontend, backend, and database are talking to each other.
+          Frontend, backend, and database are configured. Use the health panel below to confirm everything is healthy.
         </p>
-        <p className="welcome__configured">✅ Your project is fully configured.</p>
+        <p className="welcome__configured">Project setup complete.</p>
       </header>
 
       {appInfoError && (

@@ -9,6 +9,7 @@ export type {
   BackendFramework,
   DatabaseEngine,
   FrontendFramework,
+  InitialAdminConfig,
   OrmAdapter,
   PartialProjectConfig,
   ProjectConfig,

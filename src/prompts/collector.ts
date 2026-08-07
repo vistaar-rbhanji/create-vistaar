@@ -11,6 +11,7 @@
 import { confirm, input, select } from "@inquirer/prompts";
 
 import type { ProjectConfig, QuestionDefinition } from "../types/index.js";
+import { withInitialAdmin } from "./initial-admin.js";
 import { CREATE_QUESTIONS } from "./questions.js";
 
 type AnswerBag = Record<string, unknown>;
@@ -82,6 +83,11 @@ export async function collectProjectConfig(
     answers.orm = null;
   }
 
+  if (answers.initialAdmin === undefined) {
+    answers.initialAdmin = null;
+  }
+
   // Narrow once at the boundary. Generators receive ProjectConfig only.
-  return answers as unknown as ProjectConfig;
+  const base = answers as unknown as ProjectConfig;
+  return withInitialAdmin(base);
 }

@@ -32,6 +32,12 @@ export function printProjectConfig(config: ProjectConfig): void {
     ["Database", config.database],
     ["ORM", config.orm],
     ["Authentication", config.authentication],
+    [
+      "Initial admin",
+      config.initialAdmin
+        ? `${config.initialAdmin.firstName} ${config.initialAdmin.lastName} <${config.initialAdmin.email}>`
+        : null,
+    ],
     ["Docker", config.docker],
     ["Git", config.git],
     ["Husky", config.husky],
