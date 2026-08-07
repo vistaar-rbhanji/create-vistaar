@@ -53,6 +53,7 @@ Phases 1–15: prompts, template engine, generators, installers, modules (local)
 - Normal setup: `.env` auto-created → create DB → update URL → `migrate`/`seed` or Setup Wizard — not raw `auth:init-db`/`auth:create-admin`
 - **Later add:** `create-vistaar add auth` uses `vistaar.json` + same `install(context)` — do not invent a second installer
 - Manifest: always update `vistaar.json` after create / add auth (`src/project-manifest/`)
+- **stack.js:** always regenerate via `writeStackFile` from ProjectConfig after create/add/remove (`src/project-stack/`) — do not leave stale frontend-only values after `add auth`
 
 ## Setup philosophy
 

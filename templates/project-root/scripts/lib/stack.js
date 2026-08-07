@@ -1,5 +1,6 @@
-// Baked in at generation time so root-level scripts stay aware of the
-// selected stack without re-reading CLI answers at runtime.
+// Regenerated from project configuration (vistaar.json / ProjectConfig).
+// Root scripts use this file as the live stack snapshot — create-vistaar
+// overwrites it whenever the project stack changes (create, add, remove).
 export const PROJECT_NAME = "{{PROJECT_NAME}}";
 export const BACKEND = "{{BACKEND}}";
 export const DATABASE = "{{DATABASE}}";

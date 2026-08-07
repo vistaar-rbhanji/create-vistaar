@@ -15,6 +15,7 @@ import {
   projectConfigFromManifest,
   writeVistaarManifest,
 } from "../../project-manifest/index.js";
+import { writeStackFile } from "../../project-stack/index.js";
 import { FUTURE_ADD_MODULES, printComingSoon } from "../shared/index.js";
 import type { CliCommand, CommandContext } from "../types.js";
 import { withInitialAdmin } from "../../prompts/index.js";
@@ -160,9 +161,13 @@ async function executeAddAuth(context: CommandContext): Promise<void> {
   });
   await writeVistaarManifest(projectRoot, nextManifest);
 
+  // Regenerate stack.js from updated project configuration (shared with create).
+  await writeStackFile(projectRoot, config);
+
   logger.blank();
   logger.success("✓ Authentication added successfully.");
   logger.info("  Updated vistaar.json");
+  logger.info("  Updated scripts/lib/stack.js");
   logger.info("  Next steps:");
   logger.info("    1. Ensure auth-api/.env has DATABASE_URL (created from .env.example)");
   logger.info("    2. Create your PostgreSQL database, then: npm run migrate && npm run seed");

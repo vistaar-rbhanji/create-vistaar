@@ -12,6 +12,7 @@ import {
   manifestFromProjectConfig,
   writeVistaarManifest,
 } from "../../project-manifest/index.js";
+import { writeStackFile } from "../../project-stack/index.js";
 import { collectProjectConfig } from "../../prompts/index.js";
 import { TemplateEngine } from "../../template-engine/index.js";
 import { logger, printProjectConfig } from "../../utils/index.js";
@@ -65,7 +66,10 @@ export async function execute(
     generation.paths.root,
     manifestFromProjectConfig(config, modules),
   );
+  // Ensure stack.js matches final config (same helper used by add/remove).
+  await writeStackFile(generation.paths.root, config);
   logger.success("  Wrote vistaar.json");
+  logger.success("  Wrote scripts/lib/stack.js");
 }
 
 export const createCommand: CliCommand = {

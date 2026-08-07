@@ -90,7 +90,20 @@ File: `src/commands/add/index.ts`
 7. Run `BackendGenerator` / `DatabaseGenerator` / Orm|NativeDriver when needed
 8. Call auth `install(context)` (same API as create)
 9. Update `vistaar.json`
-10. Run `ProjectInstaller` (env copy, npm including auth-api, db setup when possible)
+10. Regenerate `scripts/lib/stack.js` via shared `writeStackFile(config)` (Phase 16)
+11. Run `ProjectInstaller` (env copy, npm including auth-api, db setup when possible)
+
+## stack.js regeneration (Phase 16)
+
+`scripts/lib/stack.js` is derived from **ProjectConfig / vistaar.json**, never from folder sniffing.
+
+- Implementation: `src/project-stack/write-stack-file.ts` (`writeStackFile`, `renderStackJs`)
+- Labels / drivers reuse `createTemplateVariables` / `resolveDbDriver`
+- **Create:** `RootExtrasGenerator` + final write after `vistaar.json`
+- **Add auth:** after manifest update
+- **Future remove/add:** call the same `writeStackFile(projectRoot, updatedConfig)` after updating config
+
+So migrate/seed/doctor always see the current `BACKEND` / `DATABASE` / `AUTHENTICATION_ENABLED`.
 
 Registered on both `create-vistaar` and `vistaar` binaries.
 
